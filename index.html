@@ -1,753 +1,1635 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bismillah Car Wash - Premium Car Care in Srinagar</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-    tailwind.config = {
-        theme: {
-            extend: {
-                colors: {
-                    brand: {
-                        cyan: '#00d0ff',    // Bright accents/buttons
-                        purple: '#5512d9',  // Secondary accents
-                        deep: '#041e8c',    // Deep shadow/border blues
-                        blue: '#0b4cf2',    // Primary brand blue
-                        midnight: '#010626',// Deepest background
-                        dark: '#031040',    // Section background
-                        card: '#081d66'     // Card background
-                    }
-                }
-            }
-        }
-    }
-</script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-    @font-face { font-family: "SF Pro Display"; font-style: normal; font-weight: 400; src: url("https://raw.githubusercontent.com/blaisck/sfwin/master/SFPro/TrueType/SFProDisplay-Regular.ttf"); }
-    @font-face { font-family: "SF Pro Display"; font-style: normal; font-weight: 600; src: url("https://raw.githubusercontent.com/blaisck/sfwin/master/SFPro/TrueType/SFProDisplay-SemiBold.ttf"); }
-    @font-face { font-family: "SF Pro Display"; font-style: normal; font-weight: 700; src: url("https://raw.githubusercontent.com/blaisck/sfwin/master/SFPro/TrueType/SFProDisplay-Bold.ttf"); }
-    
-    body {
-        font-family: 'SF Pro Display', sans-serif;
-        background-color: #010626; /* brand-midnight */
-    }
-    
-    /* === PRELOADER ANIMATIONS === */
-    @keyframes load-fill {
-        0% { width: 0%; }
-        100% { width: 100%; }
-    }
-    @keyframes pulse-ring {
-        0% { transform: scale(0.8); opacity: 0.8; }
-        100% { transform: scale(2); opacity: 0; }
-    }
-    .animate-load-fill {
-        animation: load-fill 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    }
-    .animate-pulse-ring {
-        animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
-    }
-    .loader-exit {
-        opacity: 0;
-        visibility: hidden;
-        transform: scale(1.05);
-        transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .hero-bg {
-        background-color: #010626;
-        background-image:
-        radial-gradient(circle at 50% 20%, rgba(4, 30, 140, 0.4) 0%, transparent 60%),
-        radial-gradient(circle at 50% 50%, #031040 0%, #010626 100%);
-    }
-    .glow-button:hover {
-        box-shadow: 0 0 20px 5px rgba(0, 208, 255, 0.5); /* Brand Cyan Glow */
-    }
-    .glow-element:hover {
-        box-shadow: 0 0 20px 8px rgba(11, 76, 242, 0.4); /* Brand Blue Glow */
-        border-color: #00d0ff;
-    }
-    .glassy-menu-button {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(9px) saturate(180%);
-        -webkit-backdrop-filter: blur(9px) saturate(180%);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        border-radius: 9999px;
-        padding: 0.75rem;
-        width: 50px; height: 50px; display: flex; align-items: center;
-        justify-content: center;
-        color: white; cursor: pointer;
-    }
-    
-    /* === FINAL FISH-EYE LENS HEADER === */
-    .liquid-glass-header {
-        background: rgba(255, 255, 255, 0.10);
-        -webkit-backdrop-filter: blur(30px) saturate(145%) url(#fisheye-lens-filter);
-        backdrop-filter: blur(0px) saturate(145%) url(#fisheye-lens-filter);
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        box-shadow: inset 0px 4px 30px rgba(0, 0, 0, 0.1), 0px 2px 30px rgba(0, 0, 0, 0.8);
-    }
-
-    /* === NEW: GLASSY PURPLE BUTTONS (Based on reference image) === */
-    .glassy-btn-purple {
-        background: linear-gradient(180deg, #8b5cff 0%, #5e21ff 100%);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        box-shadow:
-            inset 0px 1px 1px rgba(255, 255, 255, 0.6),  /* Top inner highlight */
-            inset 0px -1px 2px rgba(0, 0, 0, 0.3),       /* Bottom inner shadow */
-            0px 8px 20px rgba(94, 33, 255, 0.5);         /* Outer glow */
-        text-shadow: 0px 1px 2px rgba(0,0,0,0.2);
-    }
-    .glassy-btn-purple:hover {
-        background: linear-gradient(180deg, #9669ff 0%, #692dff 100%);
-        box-shadow:
-            inset 0px 1px 1px rgba(255, 255, 255, 0.7),
-            inset 0px -1px 2px rgba(0, 0, 0, 0.3),
-            0px 12px 28px rgba(94, 33, 255, 0.7);
-    }
-
-    /* === ANIMATED MENU DIVIDERS === */
-    @keyframes shimmer {
-        0% { background-position: -200% 0; }
-        100% { background-position: 200% 0; }
-    }
-    .menu-divider {
-        height: 1px; width: 100%;
-        background: linear-gradient(90deg, transparent, #0b4cf2, transparent);
-        background-size: 200% 100%;
-        animation: shimmer 3s infinite linear;
-        opacity: 1;
-    }
-    /* Portfolio Overlay */
-    .portfolio-overlay {
-        background: linear-gradient(to top, rgba(1, 6, 38, 0.95), rgba(1, 6, 38, 0.6), transparent);
-    }
-</style>
-</head>
-<body class="bg-brand-midnight text-gray-200 selection:bg-brand-cyan selection:text-white overflow-x-hidden relative" style="overflow: hidden;">
-
-<!-- PREMIUM LOADER -->
-<div id="premium-loader" class="fixed inset-0 z-[99999] bg-brand-midnight flex flex-col items-center justify-center transition-all duration-700">
-    <div class="relative flex flex-col items-center justify-center">
-        <!-- Glowing animated rings -->
-        <div class="absolute top-8 left-1/2 -translate-x-1/2 w-24 h-24 bg-brand-cyan/40 rounded-full blur-md animate-pulse-ring"></div>
-        <div class="absolute top-8 left-1/2 -translate-x-1/2 w-24 h-24 bg-brand-purple/40 rounded-full blur-md animate-pulse-ring" style="animation-delay: 0.75s;"></div>
-        
-        <!-- Center Icon Box -->
-        <div class="relative w-20 h-20 mb-8 flex items-center justify-center rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xl shadow-[0_0_30px_rgba(0,208,255,0.2)]">
-            <i class="fas fa-car-side text-4xl text-transparent bg-clip-text bg-gradient-to-br from-brand-cyan to-brand-purple"></i>
-        </div>
-
-        <!-- Brand Text -->
-        <h2 class="text-xl md:text-2xl font-bold text-white tracking-[0.2em] uppercase mb-1">Bismillah Car Wash</h2>
-        <p class="text-brand-cyan text-xs md:text-sm tracking-widest uppercase mb-8 opacity-80">Loading Experience</p>
-
-        <!-- Progress Line -->
-        <div class="w-48 md:w-64 h-[2px] bg-brand-deep/50 rounded-full overflow-hidden relative">
-            <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-brand-cyan via-white to-brand-cyan animate-load-fill shadow-[0_0_10px_#00d0ff]"></div>
-        </div>
-    </div>
-</div>
-
-<!-- This is the Filter for the "Passive" Turbulence Effect -->
-<svg style="position:absolute; width:0; height:0; pointer-events: none;">
-    <filter id="fisheye-lens-filter">
-        <feTurbulence id="turbulence" type="fractalNoise" baseFrequency="0.01 0.04" numOctaves="1" seed="2" result="noise"/>
-        <feImage xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImciIGN4PSI1MCUiIGN5PSI1MCUiIHI9IjUwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0id2hpdGUiIC8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSJibGFjayIgLz48L3JhZGlhbEdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0idXJsKCNnKSIgLz48L3N2Zz4=" x="0" y="0" width="100%" height="100%" result="radial-map"/>
-        <feBlend in="noise" in2="radial-map" mode="multiply" result="final-map"/>
-        <feDisplacementMap in="SourceGraphic" in2="final-map" scale="100" xChannelSelector="R" yChannelSelector="G"/>
-    </filter>
-</svg>
-
-<!-- ============================================== -->
-<!-- FIXED FLOATING ACTIONS & TAG -->
-<!-- ============================================== -->
-
-<!-- Left Phone Icon -->
-<a href="tel:7889799981" class="fixed bottom-6 left-4 md:left-8 z-[100] glassy-btn-purple w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full text-white text-lg md:text-xl hover:-translate-y-1 transition-all duration-300">
-    <i class="fas fa-phone-alt"></i>
-</a>
-
-<!-- Right Book Appointment Pill -->
-<a href="https://wa.me/917889799981" target="_blank" class="fixed bottom-6 right-4 md:right-8 z-[100] glassy-btn-purple pl-2 pr-5 py-2 md:py-2.5 md:pl-3 md:pr-6 flex items-center gap-3 rounded-full text-white hover:-translate-y-1 transition-all duration-300">
-    <div class="bg-white/20 w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center backdrop-blur-md border border-white/20 shadow-inner">
-        <i class="fab fa-whatsapp text-lg md:text-xl"></i>
-    </div>
-    <span class="font-bold text-sm md:text-base tracking-wide">Book Appointment</span>
-</a>
-
-
-<!-- MOBILE MENU OVERLAY & MENU -->
-<div id="mobile-menu-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[60] hidden transition-opacity duration-300"></div>
-<div id="mobile-menu" class="hidden md:hidden fixed inset-x-4 top-24 max-w-lg mx-auto bg-brand-dark/95 backdrop-blur-xl rounded-[2rem] z-[70] border border-brand-deep overflow-hidden shadow-2xl shadow-brand-deep/50 transition-all duration-300">
-    <!-- Menu Header -->
-    <div class="flex justify-between items-center p-6 bg-white/5">
-        <span class="text-xl font-bold text-white tracking-wider ml-2">Menu</span>
-        <button id="mobile-menu-close-button" class="focus:outline-none glassy-menu-button w-10 h-10 hover:bg-red-500/20 hover:border-red-500/50">
-            <i class="fas fa-times"></i>
+<html class="no-js" lang="zxx">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>
+      Explore Kashmir &amp; Ladakh | Srinagar Destinations
+    </title>
+    <meta name="author" content="vecuro" />
+    <meta name="description" content="Book your Kashmir and Ladakh tours with Srinagar Destinations. Experience personalized travel services, including houseboat stays, guided tours, and adventure trips." />
+    <meta name="keywords" content="Srinagar travel agency, Kashmir tours, Ladakh tour booking, houseboat stays, guided tours Kashmir, adventure trips Ladakh, personalized travel services" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.srinagardestinations.com/" />
+    <meta property="og:title" content="Srinagar Destinations - Travel Agency &amp; Tour Booking" />
+    <meta property="og:description" content="Book Kashmir and Ladakh tours with Srinagar Destinations. Personalized travel services, guided tours, and adventure trips." />
+    <meta property="og:url" content="https://www.srinagardestinations.com/" />
+    <meta property="og:image" content="https://www.srinagardestinations.com/path-to-your-image.jpg" />
+    <meta property="og:type" content="website" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Srinagar Destinations" />
+    <meta http-equiv="Content-Language" content="en" />
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Favicons - Place favicon.ico in the root directory -->
+    <link rel="icon" type="image/png" href="https://www.srinagardestination.com/theme/assets/img/favicons/favicon.png" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="theme-color" content="#ffffff" />
+    <!--==============================
+	Google Fonts
+	============================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <!--==============================
+        All CSS File
+    ============================== -->
+    <!-- Bootstrap -->
+    <!-- <link rel="stylesheet" href="https://www.srinagardestination.com/theme/assets/css/app.min.css"> -->
+    <link rel="stylesheet" href="https://www.srinagardestination.com/theme/assets/css/bootstrap.min.css" />
+    <!-- Fontawesome Icon -->
+    <link rel="stylesheet" href="https://www.srinagardestination.com/theme/assets/css/fontawesome.min.css" />
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="https://www.srinagardestination.com/theme/assets/css/magnific-popup.min.css" />
+    <!-- Slick Slider -->
+    <link rel="stylesheet" href="https://www.srinagardestination.com/theme/assets/css/slick.min.css" />
+    <!-- Theme Custom CSS -->
+    <link rel="stylesheet" href="https://www.srinagardestination.com/theme/assets/css/style.css" />
+  </head>
+  <body>
+    <!--********************************
+    Code Start From Here 
+    ******************************** -->
+    <!--==============================
+      Mobile Menu
+    ============================== -->
+    <div class="vs-menu-wrapper">
+      <div class="vs-menu-area text-center">
+        <button class="vs-menu-toggle">
+          <i class="fal fa-times"></i>
         </button>
+        <div class="mobile-logo">
+          <a href="https://www.srinagardestination.com/">          <img src="https://www.srinagardestination.com/theme/assets/img/logo.jpeg" alt="Travolo" style="width:85px" ;="" />
+</a>
+        </div>
+        <div class="vs-mobile-menu">
+          <ul>
+            <li>
+              <a href="https://www.srinagardestination.com/">              Home
+</a>
+            </li>
+            <li>
+              <a href="https://www.srinagardestination.com/about-us">              About Us
+</a>
+            </li>
+            <li>
+              <a href="https://www.srinagardestination.com/destinations">              Destinations
+</a>
+            </li>
+            <li class="menu-item-has-children">
+              <a href="#">              Tour Packages
+</a>
+              <ul class="sub-menu">
+                <li>
+                  <a href="https://www.srinagardestination.com/tour-packages/heavenly-kashmir">                  Heavenly Kashmir
+</a>
+                </li>
+                <li>
+                  <a href="https://www.srinagardestination.com/tour-packages/paradise-on-kashmir">                  Paradise on Kashmir
+</a>
+                </li>
+                <li>
+                  <a href="https://www.srinagardestination.com/tour-packages/honeymoon-package">                  Honeymoon Package
+</a>
+                </li>
+                <li>
+                  <a href="https://www.srinagardestination.com/tour-packages/nature-of-kashmir">                  Nature of Kashmir
+</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="https://www.srinagardestination.com/contact">              Contact Us
+</a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <!-- Animated Top Divider -->
-    <div class="menu-divider"></div>
-    <!-- Menu Links with animated dividers -->
-    <div class="flex flex-col p-2">
-        <a href="#home" class="block text-center py-4 text-lg font-medium hover:bg-brand-cyan/10 hover:text-brand-cyan transition rounded-xl">Home</a>
-        <div class="menu-divider opacity-30"></div>
-        <a href="#about" class="block text-center py-4 text-lg font-medium hover:bg-brand-cyan/10 hover:text-brand-cyan transition rounded-xl">About Us</a>
-        <div class="menu-divider opacity-30"></div>
-        <a href="#services" class="block text-center py-4 text-lg font-medium hover:bg-brand-cyan/10 hover:text-brand-cyan transition rounded-xl">Services</a>
-        <div class="menu-divider opacity-30"></div>
-        <a href="#products" class="block text-center py-4 text-lg font-medium hover:bg-brand-cyan/10 hover:text-brand-cyan transition rounded-xl">Shop</a>
-        <div class="menu-divider opacity-30"></div>
-        <a href="#testimonials" class="block text-center py-4 text-lg font-medium hover:bg-brand-cyan/10 hover:text-brand-cyan transition rounded-xl">Reviews</a>
-        <div class="menu-divider opacity-30"></div>
-        <a href="#contact" class="block text-center py-4 text-lg font-bold text-brand-cyan hover:bg-brand-cyan/10 transition rounded-xl mt-2 mb-2">Contact Us</a>
+    <!--==============================
+      Popup Search Box
+    ============================== -->
+    <div class="popup-search-box d-none d-lg-block  ">
+      <button class="searchClose">
+        <i class="fal fa-times"></i>
+      </button>
+      <form action="#">
+        <input type="text" class="border-theme" placeholder="What are you looking for" />
+        <button type="submit">
+          <i class="fal fa-search"></i>
+        </button>
+      </form>
     </div>
-</div>
-
-<!-- HEADER SECTION & BRAND TAG -->
-<div class="sticky top-0 z-50 flex flex-col items-center w-full">
-    <!-- Brand Tag Bar -->
-    <div class="w-full bg-gradient-to-r from-brand-deep via-brand-purple to-brand-blue text-white text-xs md:text-sm font-semibold py-1.5 md:py-2 text-center tracking-wide shadow-[0_2px_15px_rgba(0,0,0,0.6)] z-20 relative">
-        📞 Contact Us: 78897 99981 &nbsp;|&nbsp; 60058 74030 &nbsp;—&nbsp; Open 24 Hours
-    </div>
-
-    <!-- Main Header -->
-    <div class="w-full p-2 md:p-4">
-        <header id="header" class="container mx-auto relative rounded-full liquid-glass-header">
-            <div class="relative z-10 w-full flex justify-between items-center px-6 py-3 md:px-10 md:py-4">
-                <a href="#home" class="flex items-center text-xl md:text-2xl lg:text-3xl font-bold text-white tracking-wider group">
-                    <i class="fas fa-car-side h-8 w-8 md:h-9 md:w-9 text-brand-cyan mr-3 group-hover:scale-110 transition-transform flex items-center justify-center"></i>
-                    <span class="whitespace-nowrap">Bismillah Car Wash</span>
-                </a>
-                <nav class="hidden md:flex space-x-10">
-                    <a href="#home" class="text-lg font-medium text-gray-300 hover:text-brand-cyan transition duration-300">Home</a>
-                    <a href="#about" class="text-lg font-medium text-gray-300 hover:text-brand-cyan transition duration-300">About</a>
-                    <a href="#services" class="text-lg font-medium text-gray-300 hover:text-brand-cyan transition duration-300">Services</a>
-                    <a href="#products" class="text-lg font-medium text-gray-300 hover:text-brand-cyan transition duration-300">Shop</a>
-                    <a href="#testimonials" class="text-lg font-medium text-gray-300 hover:text-brand-cyan transition duration-300">Reviews</a>
-                    <a href="#contact" class="text-lg font-medium text-gray-300 hover:text-brand-cyan transition duration-300">Contact</a>
+    <!--==============================
+      Header Area
+    ==============================-->
+    <header class="vs-header header-layout1">
+      <div class="container">
+        <div class="header-top">
+          <div class="row justify-content-between align-items-center">
+            <div class="col d-none d-lg-block">
+              <ul class="header-contact">
+                <li>
+                  <i class="fas fa-envelope"></i>
+                  <a href="mailto:srinagardestination@gmail.com">                  srinagardestination@gmail.com
+</a>
+                </li>
+                <li>
+                  <i class="fas fa-envelope"></i>
+                  <a href="mailto:srinagardestinationtravels@gmail.com">                  srinagardestinationtravels@gmail.com
+</a>
+                </li>
+                <li>
+                  <i class="fas fa-phone-alt"></i>
+                  <a href="tel:+919906008080">                  +91 9906 008 080
+</a>
+                </li>
+                <li>
+                  <i class="fas fa-phone-alt"></i>
+                  <a href="tel:+918899734759">                  +91 8899 734 759
+</a>
+                </li>
+              </ul>
+            </div>
+            <div class="col-auto">
+              <div class="header-social">
+                <!-- <a href="#"><i class="fab fa-facebook-f"></i></a> -->
+                <a href="https://www.instagram.com/srinagar_destination?igsh=MWRsNWppaGR6aDFnMQ==">                <i class="fab fa-instagram"></i>
+</a>
+                <!-- <a href="#"><i class="fab fa-pinterest-p"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sticky-wrapper">
+        <div class="sticky-active">
+          <div class="container position-relative z-index-common">
+            <div class="row align-items-center justify-content-between">
+              <div class="col-auto">
+                <div class="vs-logo">
+                  <a href="https://www.srinagardestination.com/">                  <img src="https://www.srinagardestination.com/theme/assets/img/logo.jpeg" alt="logo" style="width:85px" ;="" />
+</a>
+                </div>
+              </div>
+              <div class="col text-end text-xl-center">
+                <nav class="main-menu  menu-style1 d-none d-lg-block">
+                  <ul>
+                    <li>
+                      <a href="https://www.srinagardestination.com/">                      Home
+</a>
+                    </li>
+                    <li>
+                      <a href="https://www.srinagardestination.com/about-us">                      About Us
+</a>
+                    </li>
+                    <li>
+                      <a href="https://www.srinagardestination.com/destinations">                      Destinations
+</a>
+                    </li>
+                    <li class="menu-item-has-children">
+                      <a href="#">                      Tour Packages
+</a>
+                      <ul class="sub-menu">
+                        <li>
+                          <a href="https://www.srinagardestination.com/tour-packages/heavenly-kashmir">                          Heavenly Kashmir
+</a>
+                        </li>
+                        <li>
+                          <a href="https://www.srinagardestination.com/tour-packages/paradise-on-kashmir">                          Paradise on Kashmir
+</a>
+                        </li>
+                        <li>
+                          <a href="https://www.srinagardestination.com/tour-packages/honeymoon-package">                          Honeymoon Package
+</a>
+                        </li>
+                        <li>
+                          <a href="https://www.srinagardestination.com/tour-packages/nature-of-kashmir">                          Nature of Kashmir
+</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="https://www.srinagardestination.com/contact">                      Contact Us
+</a>
+                    </li>
+                  </ul>
                 </nav>
-                <button id="mobile-menu-button" class="md:hidden focus:outline-none z-50 glassy-menu-button hover:text-brand-cyan transition-colors">
-                    <i id="menu-open-icon" class="fas fa-bars fa-lg"></i>
+                <button class="vs-menu-toggle d-inline-block d-lg-none">
+                  <i class="fal fa-bars"></i>
                 </button>
-            </div>
-        </header>
-    </div>
-</div>
-
-<main>
-    <!-- HERO SECTION -->
-    <section id="home" class="hero-bg min-h-screen flex items-center relative overflow-hidden -mt-24 pt-24">
-        <!-- High Quality Car Wash Background Image -->
-        <img src="https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?q=80&w=1920&auto-format&fit=crop"
-             alt="Premium Car Detailing"
-             class="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-overlay">
-        <div class="absolute inset-0 bg-gradient-to-b from-brand-deep/30 via-brand-midnight/80 to-brand-midnight"></div>
-        
-        <div class="container mx-auto px-6 text-center relative z-10 pt-10">
-            <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4 drop-shadow-lg">
-                Best Car Washing <br><span class="text-brand-cyan">In The Valley.</span>
-            </h1>
-            <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-                A complete car wash centre offering Foam Washing, Interior Vacuum, Glass Cleaning, Wax Polish, and Mechanic Work in Srinagar. Experience high-quality service available 24 hours.
-            </p>
-            <a href="https://wa.me/917889799981" target="_blank" class="bg-brand-cyan text-white font-semibold px-8 py-3 rounded-full hover:bg-cyan-500 transition duration-300 text-lg glow-button inline-block">
-                <i class="fab fa-whatsapp mr-2"></i> Book a Wash
-            </a>
-        </div>
-    </section>
-
-    <!-- ABOUT SECTION -->
-    <section id="about" class="py-20 bg-brand-dark relative border-t border-brand-deep/30">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-white">About Us</h2>
-                <div class="w-24 h-1 bg-brand-blue mx-auto mt-4 rounded box-shadow-[0_0_10px_#0b4cf2]"></div>
-            </div>
-            <div class="flex flex-col md:flex-row items-center gap-12">
-                <div class="md:w-1/2 relative group">
-                    <div class="absolute -inset-1 bg-gradient-to-r from-brand-cyan to-brand-blue rounded-[3rem] blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
-                    <!-- Car Washing Action Image -->
-                    <img src="https://images.unsplash.com/photo-1601362840469-51e4d8d58785?q=80&w=1920&auto-format&fit=crop" alt="Car Washing" class="relative rounded-[3rem] shadow-2xl w-full border border-gray-800">
-                </div>
-                <div class="md:w-1/2 text-center md:text-left">
-                    <h3 class="text-2xl font-semibold text-white mb-4">Dedicated to Perfection</h3>
-                    <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-4">
-                        Located in the heart of Upper Sathoo Barbar Shah, Srinagar, Bismillah Car Wash sets the standard for premium vehicle care. We believe that your vehicle deserves nothing but the best, which is why we proudly state: <strong>"Bismillah Car Wash is the best in the valley."</strong>
-                    </p>
-                    <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-4">
-                        From comprehensive interior dry cleaning, wax polish, and dashboard restoration, to accessories and mechanic work, our facility is equipped to handle it all 24 hours a day.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4 mt-6 justify-center md:justify-start">
-                        <div class="bg-brand-midnight border border-brand-deep/50 px-4 py-2 rounded-lg flex items-center gap-3">
-                            <i class="fas fa-map-marker-alt text-brand-cyan"></i>
-                            <span class="text-sm text-gray-300">Serving Barbar Shah</span>
-                        </div>
-                        <div class="bg-brand-midnight border border-brand-deep/50 px-4 py-2 rounded-lg flex items-center gap-3">
-                            <i class="fas fa-clock text-brand-cyan"></i>
-                            <span class="text-sm text-gray-300">Open 24 Hours</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SERVICES SECTION -->
-    <section id="services" class="py-20 bg-brand-midnight relative overflow-hidden">
-        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-brand-deep opacity-20 blur-3xl rounded-full pointer-events-none"></div>
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-white">Our Services</h2>
-                <div class="w-24 h-1 bg-brand-cyan mx-auto mt-4 rounded"></div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Card 1 -->
-                <div class="bg-brand-card border border-brand-deep/50 p-8 rounded-[3rem] text-center shadow-lg transform hover:-translate-y-2 transition-all duration-300 glow-element group">
-                    <div class="text-brand-blue mb-4 group-hover:text-brand-cyan transition-colors duration-300"><i class="fas fa-soap fa-3x"></i></div>
-                    <h3 class="text-xl font-bold text-white mb-2">Foam Washing</h3>
-                    <p class="text-gray-400 text-base md:text-lg">Thick, snow-like foam that safely lifts dirt and grime without scratching your vehicle's paint.</p>
-                </div>
-                <!-- Card 2 -->
-                <div class="bg-brand-card border border-brand-deep/50 p-8 rounded-[3rem] text-center shadow-lg transform hover:-translate-y-2 transition-all duration-300 glow-element group">
-                    <div class="text-brand-blue mb-4 group-hover:text-brand-cyan transition-colors duration-300"><i class="fas fa-vacuum fa-3x"></i></div>
-                    <h3 class="text-xl font-bold text-white mb-2">Interior Vacuum & Glass</h3>
-                    <p class="text-gray-400 text-base md:text-lg">Comprehensive interior vacuuming and streak-free glass cleaning for a crystal clear view.</p>
-                </div>
-                <!-- Card 3 -->
-                <div class="bg-brand-card border border-brand-deep/50 p-8 rounded-[3rem] text-center shadow-lg transform hover:-translate-y-2 transition-all duration-300 glow-element group">
-                    <div class="text-brand-blue mb-4 group-hover:text-brand-cyan transition-colors duration-300"><i class="fas fa-spray-can fa-3x"></i></div>
-                    <h3 class="text-xl font-bold text-white mb-2">Wax & Engine Polish</h3>
-                    <p class="text-gray-400 text-base md:text-lg">Advanced wax polish to restore exterior shine and engine polishing to keep your bay pristine.</p>
-                </div>
-                <!-- Card 4 -->
-                <div class="bg-brand-card border border-brand-deep/50 p-8 rounded-[3rem] text-center shadow-lg transform hover:-translate-y-2 transition-all duration-300 glow-element group">
-                    <div class="text-brand-blue mb-4 group-hover:text-brand-cyan transition-colors duration-300"><i class="fas fa-car-side fa-3x"></i></div>
-                    <h3 class="text-xl font-bold text-white mb-2">Tyre & Dashboard Polish</h3>
-                    <p class="text-gray-400 text-base md:text-lg">Specialized conditioning and polishing to revive your tyres and restore your dashboard's factory look.</p>
-                </div>
-                <!-- Card 5 -->
-                <div class="bg-brand-card border border-brand-deep/50 p-8 rounded-[3rem] text-center shadow-lg transform hover:-translate-y-2 transition-all duration-300 glow-element group">
-                    <div class="text-brand-blue mb-4 group-hover:text-brand-cyan transition-colors duration-300"><i class="fas fa-chair fa-3x"></i></div>
-                    <h3 class="text-xl font-bold text-white mb-2">Complete Interior Wash</h3>
-                    <p class="text-gray-400 text-base md:text-lg">Deep cleaning for your door pads, seats, and top roof, ensuring the whole cabin smells fresh.</p>
-                </div>
-                <!-- Card 6 -->
-                <div class="bg-brand-card border border-brand-deep/50 p-8 rounded-[3rem] text-center shadow-lg transform hover:-translate-y-2 transition-all duration-300 glow-element group">
-                    <div class="text-brand-blue mb-4 group-hover:text-brand-cyan transition-colors duration-300"><i class="fas fa-tools fa-3x"></i></div>
-                    <h3 class="text-xl font-bold text-white mb-2">Mechanic Work & Accessories</h3>
-                    <p class="text-gray-400 text-base md:text-lg">More than just a wash! We offer essential mechanic work and premium car accessories.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SHOP/PRODUCTS SECTION -->
-    <section id="products" class="py-20 bg-brand-dark relative border-t border-brand-deep/30">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-white">Premium Shop</h2>
-                <div class="w-24 h-1 bg-brand-blue mx-auto mt-4 rounded box-shadow-[0_0_10px_#0b4cf2]"></div>
-                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Maintain that showroom shine at home with our professional-grade detailing products.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <!-- Product 1 -->
-                <div class="group relative h-80 rounded-[2.5rem] overflow-hidden cursor-pointer border border-brand-deep/30 shadow-lg">
-                    <img src="https://images.unsplash.com/photo-1622396090075-ab6b8396ffa9?q=80&w=1920&auto-format&fit=crop" loading="lazy" alt="Microfiber Cloth" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 portfolio-overlay opacity-80 group-hover:opacity-90 transition-opacity"></div>
-                    <div class="absolute bottom-0 left-0 p-8 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 w-full">
-                        <div class="flex justify-between items-end">
-                            <div>
-                                <span class="text-brand-cyan font-bold uppercase text-xs tracking-wider">Top Seller</span>
-                                <h3 class="text-2xl font-bold text-white mt-1">Car Cleaning Cloth <br><span class="text-lg font-medium text-gray-300">800 GSM</span></h3>
-                            </div>
-                            <div class="text-right">
-                                <span class="text-white font-bold text-xl">₹120 – ₹250</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              </div>
+              <!-- <div class="col-auto d-none d-xl-block">
+              <div class="header-btns">
                 
-                <!-- Placeholder for future product -->
-                <div class="group relative h-80 rounded-[2.5rem] overflow-hidden border border-brand-deep/30 bg-brand-midnight flex items-center justify-center shadow-lg">
-                    <div class="text-center">
-                        <i class="fas fa-box-open text-brand-blue fa-3x mb-4 opacity-50"></i>
-                        <h3 class="text-xl font-bold text-gray-500">More Car Accessories<br>Coming Soon</h3>
-                    </div>
-                </div>
+                <button class="sideMenuToggler"><i class="fal fa-bars"></i></button>
+              </div>
+            </div> -->
             </div>
+          </div>
         </div>
+      </div>
+    </header>
+    <!--==============================
+    Hero Area Start 
+  ==============================-->
+    <section class="hero-layout" data-bg-src="https://www.srinagardestination.com/theme/assets/img/banner/banner-bg-1.png">
+      <div class="hero-mask">
+        <div class="vs-carousel" id="hero-slider" data-slide-show="1" autoplay="false">
+          <div class="hero-slide">
+            <div class="container">
+              <div class="row align-items-center justify-content-between">
+                <div class="col-lg-6">
+                  <div class="hero-content">
+                    <span class="hero-subtitle">                    Your Adventure Awaits
+</span>
+                    <h1 class="hero-title">
+                      Discover Kashmir: A Journey to Paradise
+                    </h1>
+                    <p class="hero-text">
+                      Explore the breathtaking beauty of Kashmir with our exclusive tour packages, where every moment feels like a dream.
+                    </p>
+                    <a href="https://www.srinagardestination.com/tour-packages/nature-of-kashmir" class="vs-btn style4">                    Read More
+</a>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="hero-img">
+                    <img class="img1" src="https://www.srinagardestination.com/theme/assets/img/kashmir view.png" alt="hero" />
+                    <img class="img2" src="https://www.srinagardestination.com/theme/assets/img/kashmir.png" alt="hero" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hero-slide">
+            <div class="container">
+              <div class="row align-items-center justify-content-between">
+                <div class="col-lg-6">
+                  <div class="hero-content">
+                    <span class="hero-subtitle">                    Adventure of a Lifetime
+</span>
+                    <h1 class="hero-title">
+                      Discover Ladakh: The Land of High Passes
+                    </h1>
+                    <p class="hero-text">
+                      Embark on an unforgettable journey through Ladakh’s rugged landscapes and serene beauty with our exclusive tour packages.
+                    </p>
+                    <a href="https://www.srinagardestination.com/tour-packages/heavenly-kashmir" class="vs-btn style4">                    Read More
+</a>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="hero-img">
+                    <img class="img1" src="https://www.srinagardestination.com/theme/assets/img/ladakh view.png" alt="hero" />
+                    <img class="img2" src="https://www.srinagardestination.com/theme/assets/img/kadakh small.png" alt="hero" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hero-slide">
+            <div class="container">
+              <div class="row align-items-center justify-content-between">
+                <div class="col-lg-6">
+                  <div class="hero-content">
+                    <span class="hero-subtitle">                    A Journey of Faith
+</span>
+                    <h1 class="hero-title">
+                      Experience Divinity at Vaishno Devi Temple
+                    </h1>
+                    <p class="hero-text">
+                      Embark on a sacred pilgrimage to the revered Vaishno Devi Temple and immerse yourself in a spiritual journey like no other.
+                    </p>
+                    <a href="https://www.srinagardestination.com/tour-packages/paradise-on-kashmir" class="vs-btn style4">                    Read More
+</a>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="hero-img">
+                    <img class="img1" src="https://www.srinagardestination.com/theme/assets/img/vaishnodevi.png" alt="hero" />
+                    <img class="img2" src="https://www.srinagardestination.com/theme/assets/img/vaishnodevi view.png" alt="hero" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-count vs-slider-tab" data-asnavfor="#hero-slider">
+          <button class="tab-btn active">
+            1
+          </button>
+          <button class="tab-btn">
+            2
+          </button>
+          <button class="tab-btn">
+            3
+          </button>
+        </div>
+        <div class="hero-bottom">
+          <div class="container">
+            <form class="hero-form" method="post" action="https://www.srinagardestination.com/submit">
+              <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                  <div class="form-group ">
+                    <i class="fas fa-compass"></i>
+                    <input type="text" placeholder="Where To?" />
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                  <div class="form-group">
+                    <i class="fas fa-calendar-alt"></i>
+                    <select class="form-select" name="name">
+                      <option value="" selected="selected" disabled="disabled" hidden="">
+                        Select Month
+                      </option>
+                      <option value="">
+                        January
+                      </option>
+                      <option value="">
+                        February
+                      </option>
+                      <option value="">
+                        March
+                      </option>
+                      <option value="">
+                        April
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                  <div class="form-group">
+                    <i class="fas fa-thumbtack"></i>
+                    <select class="form-select" name="name">
+                      <option value="" selected="selected" disabled="disabled" hidden="">
+                        Select Type
+                      </option>
+                      <option value="">
+                        Adventure
+                      </option>
+                      <option value="">
+                        Combining
+                      </option>
+                      <option value="">
+                        Sporting
+                      </option>
+                      <option value="">
+                        Domestic
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                  <button type="submit" class="vs-btn style4">
+                    Find Now
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </section>
-
-    <!-- TESTIMONIALS SECTION -->
-    <section id="testimonials" class="py-20 bg-brand-midnight relative border-t border-brand-deep/30">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-white">Customer Reviews</h2>
-                <div class="flex items-center justify-center gap-2 mt-4 mb-2">
-                    <div class="text-yellow-400 text-xl">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
-                    </div>
-                    <span class="text-white font-bold text-xl">3.7</span>
-                </div>
-                <p class="text-brand-cyan">Based on Google Reviews</p>
-                <div class="w-24 h-1 bg-brand-cyan mx-auto mt-4 rounded"></div>
+    <!-- ============================
+      Hero Area End 
+    ==============================-->
+    <!--==============================
+      Off beeat desinations
+  ==============================-->
+    <section class="space space-extra-bottom blog-wrapper">
+      <div class="container">
+        <div class="row justify-content-center text-center">
+          <div class="col-xl-6 col-lg-8 wow fadeInUp" data-wow-delay="0.3s">
+            <div class="title-area">
+              <span class="sec-subtitle">              Off Beat Destination
+</span>
+              <h2 class="sec-title h1">
+                Journeys to Places You’ve Never Dreamed Of
+              </h2>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Review 1 -->
-                <div class="p-8 rounded-[2rem] bg-brand-card border border-brand-deep/50 relative shadow-lg">
-                    <div class="text-brand-cyan text-4xl absolute top-4 right-6 opacity-20"><i class="fas fa-quote-right"></i></div>
-                    <p class="text-gray-300 italic mb-6 text-lg">"Best car washing in the valley"</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-brand-blue flex items-center justify-center text-white font-bold">AF</div>
-                        <div>
-                            <h4 class="font-bold text-white">Akhoon Fahd</h4>
-                            <div class="text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Review 2 -->
-                <div class="p-8 rounded-[2rem] bg-brand-card border border-brand-deep/50 relative shadow-lg">
-                    <div class="text-brand-cyan text-4xl absolute top-4 right-6 opacity-20"><i class="fas fa-quote-right"></i></div>
-                    <p class="text-gray-300 italic mb-6 text-lg">"The service was quick yet high quality."</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-brand-purple flex items-center justify-center text-white font-bold">AB</div>
-                        <div>
-                            <h4 class="font-bold text-white">Anas Bashir</h4>
-                            <div class="text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Review 3 -->
-                <div class="p-8 rounded-[2rem] bg-brand-card border border-brand-deep/50 relative shadow-lg">
-                    <div class="text-brand-cyan text-4xl absolute top-4 right-6 opacity-20"><i class="fas fa-quote-right"></i></div>
-                    <p class="text-gray-300 italic mb-6 text-lg">"I highly recommend this service station to all of you."</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-brand-cyan flex items-center justify-center text-brand-midnight font-bold">RG</div>
-                        <div>
-                            <h4 class="font-bold text-white">Raja g</h4>
-                            <div class="text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+        <div class="row vs-carousel" data-slide-show="4" data-arrows="false" data-lg-slide-show="3" data-md-slide-show="2" data-sm-slide-show="1" adaptiveheight="true">
+          <!-- First Image and Heading -->
+          <div class="col-6 col-md-6 col-lg-3 text-center">
+            <div class="blog-img-circle">
+              <a href="https://www.srinagardestination.com/destinations/#bungus">              <img src="https://www.srinagardestination.com/theme/assets/img/destinations/Bungus%20Valley.png" alt="blog image" />
+</a>
+            </div>
+            <h2 class="blog-title">
+              <a href="https://www.srinagardestination.com/destinations/#bungus">              Bungus Valley
+</a>
+            </h2>
+          </div>
+          <!-- Second Image and Heading -->
+          <div class="col-6 col-md-6 col-lg-3 text-center">
+            <div class="blog-img-circle">
+              <a href="https://www.srinagardestination.com/destinations/#dudhpathri">              <img src="https://www.srinagardestination.com/theme/assets/img/destinations/Doodhpatri.png" alt="blog image" />
+</a>
+            </div>
+            <h2 class="blog-title">
+              <a href="https://www.srinagardestination.com/destinations/#dudhpathri">              Doodhpatri
+</a>
+            </h2>
+          </div>
+          <!-- Third Image and Heading -->
+          <div class="col-6 col-md-6 col-lg-3 text-center">
+            <div class="blog-img-circle">
+              <a href="https://www.srinagardestination.com/destinations/#gulmarg">              <img src="https://www.srinagardestination.com/theme/assets/img/destinations/Gulmarg.png" alt="blog image" />
+</a>
+            </div>
+            <h2 class="blog-title">
+              <a href="https://www.srinagardestination.com/destinations/#gulmarg">              Gulmarg
+</a>
+            </h2>
+          </div>
+          <!-- Fourth Image and Heading -->
+          <div class="col-6 col-md-6 col-lg-3 text-center">
+            <div class="blog-img-circle">
+              <a href="https://www.srinagardestination.com/destinations/#gurez">              <img src="https://www.srinagardestination.com/theme/assets/img/destinations/Gurez.png" alt="blog image" />
+</a>
+            </div>
+            <h2 class="blog-title">
+              <a href="https://www.srinagardestination.com/destinations/#gurez">              Gurez
+</a>
+            </h2>
+          </div>
+          <!-- fifth Image and Heading -->
+          <div class="col-6 col-md-6 col-lg-3 text-center">
+            <div class="blog-img-circle">
+              <a href="https://www.srinagardestination.com/destinations/#kargil">              <img src="https://www.srinagardestination.com/theme/assets/img/destinations/Kargil.png" alt="blog image" />
+</a>
+            </div>
+            <h2 class="blog-title">
+              <a href="https://www.srinagardestination.com/destinations/#kargil">              Kargil
+</a>
+            </h2>
+          </div>
+          <!-- sixth Image and Heading -->
+          <div class="col-6 col-md-6 col-lg-3 text-center">
+            <div class="blog-img-circle">
+              <a href="https://www.srinagardestination.com/destinations/#leh">              <img src="https://www.srinagardestination.com/theme/assets/img/destinations/Leh.png" alt="blog image" />
+</a>
+            </div>
+            <h2 class="blog-title">
+              <a href="https://www.srinagardestination.com/destinations/#leh">              Leh
+</a>
+            </h2>
+          </div>
+          <!-- seventh Image and Heading -->
+          <div class="col-6 col-md-6 col-lg-3 text-center">
+            <div class="blog-img-circle">
+              <a href="https://www.srinagardestination.com/destinations/#nubra">              <img src="https://www.srinagardestination.com/theme/assets/img/destinations/Nubra.png" alt="blog image" />
+</a>
+            </div>
+            <h2 class="blog-title">
+              <a href="https://www.srinagardestination.com/destinations/#nubra">              Nubra
+</a>
+            </h2>
+          </div>
+          <!-- eighth Image and Heading -->
+          <div class="col-6 col-md-6 col-lg-3 text-center">
+            <div class="blog-img-circle">
+              <a href="https://www.srinagardestination.com/destinations/#pahalgam">              <img src="https://www.srinagardestination.com/theme/assets/img/destinations/Pahalgam.png" alt="blog image" />
+</a>
+            </div>
+            <h2 class="blog-title">
+              <a href="https://www.srinagardestination.com/destinations/#pahalgam">              Pahalgam
+</a>
+            </h2>
+          </div>
+          <!-- nine Image and Heading -->
+          <div class="col-6 col-md-6 col-lg-3 text-center">
+            <div class="blog-img-circle">
+              <a href="https://www.srinagardestination.com/destinations/#pangong">              <img src="https://www.srinagardestination.com/theme/assets/img/destinations/Pangong lake.png" alt="blog image" />
+</a>
+            </div>
+            <h2 class="blog-title">
+              <a href="https://www.srinagardestination.com/destinations/#pangong">              Pangong lake
+</a>
+            </h2>
+          </div>
+          <!-- tenth Image and Heading -->
+          <div class="col-6 col-md-6 col-lg-3 text-center">
+            <div class="blog-img-circle">
+              <a href="https://www.srinagardestination.com/destinations/#sonmarg">              <img src="https://www.srinagardestination.com/theme/assets/img/destinations/Sonmarg.png" alt="blog image" />
+</a>
+            </div>
+            <h2 class="blog-title">
+              <a href="https://www.srinagardestination.com/destinations/#sonmarg">              Sonmarg
+</a>
+            </h2>
+          </div>
+          <!-- eleventh Image and Heading -->
+          <div class="col-6 col-md-6 col-lg-3 text-center">
+            <div class="blog-img-circle">
+              <a href="https://www.srinagardestination.com/destinations/#srinagar">              <img src="https://www.srinagardestination.com/theme/assets/img/destinations/Srinagar.png" alt="blog image" />
+</a>
+            </div>
+            <h2 class="blog-title">
+              <a href="https://www.srinagardestination.com/destinations/#srinagar">              Srinagar
+</a>
+            </h2>
+          </div>
+          <!-- twelth Image and Heading -->
+          <div class="col-6 col-md-6 col-lg-3 text-center">
+            <div class="blog-img-circle">
+              <a href="https://www.srinagardestination.com/destinations/#yousmarg">              <img src="https://www.srinagardestination.com/theme/assets/img/destinations/Yousmarg.png" alt="blog image" />
+</a>
+            </div>
+            <h2 class="blog-title">
+              <a href="https://www.srinagardestination.com/destinations/#yousmarg">              Yousmarg
+</a>
+            </h2>
+          </div>
+        </div>
+        <!-- <div class="text-center mb-30 wow fadeInUp pt-lg-2" data-wow-delay="0.7s">
+      <a href="blog-grid.html" class="vs-btn">View More</a>
+    </div> -->
+      </div>
     </section>
+    <style>
+      .blog-img-circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+  }
 
-    <!-- CONTACT SECTION -->
-    <section id="contact" class="py-20 bg-brand-dark relative border-t border-brand-deep/30 pb-32">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Visit Us Today</h2>
-            <p class="text-gray-300 mb-8 max-w-2xl mx-auto">Drop by our location or message us on WhatsApp for bookings and inquiries.</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-10">
-                <!-- Location -->
-                <div class="p-6 bg-brand-midnight rounded-2xl border border-brand-deep/30 flex flex-col items-center">
-                    <i class="fas fa-map-marked-alt text-brand-cyan fa-2x mb-3"></i>
-                    <h4 class="text-white font-bold mb-2">Location</h4>
-                    <p class="text-gray-400 text-sm">3RH8+HHM, Sathoo Barbar Shah Rd<br>Habba Kadal, Srinagar, J&K 190001<br>Located in: De-Linz</p>
-                </div>
-                <!-- Hours -->
-                <div class="p-6 bg-brand-midnight rounded-2xl border border-brand-deep/30 flex flex-col items-center">
-                    <i class="fas fa-clock text-brand-cyan fa-2x mb-3"></i>
-                    <h4 class="text-white font-bold mb-2">Operating Hours</h4>
-                    <p class="text-gray-400 text-sm">Open 24 Hours<br>Always ready to serve you</p>
-                </div>
-                <!-- Contact -->
-                <div class="p-6 bg-brand-midnight rounded-2xl border border-brand-deep/30 flex flex-col items-center">
-                    <i class="fas fa-phone-alt text-brand-cyan fa-2x mb-3"></i>
-                    <h4 class="text-white font-bold mb-2">Call Us</h4>
-                    <p class="text-gray-400 text-sm mb-2">7889799981<br>6005874030</p>
-                    <a href="tel:7889799981" class="text-brand-cyan text-sm hover:underline">Tap to Call</a>
-                </div>
+  .blog-img-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .blog-title {
+    margin-top: 15px;
+    font-size: 1.2rem;
+  }
+
+  @media (max-width: 991px) {
+    .blog-title {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .col-sm-6 {
+      width: 100%;
+/*      margin-bottom: 20px;*/
+    }
+
+    .blog-img-circle {
+      width: 150px;
+      height: 150px;
+    }
+
+    .blog-title {
+      font-size: 1rem;
+    }
+  }
+    </style>
+    <!--==============================
+      Off beeat desinations end
+  ==============================-->
+    <section class="space shape-mockup-wrap">
+      <div class="shape-mockup d-none d-xl-block ripple-animation z-index-negative" data-top="10%" data-left="5%">
+        <img src="https://www.srinagardestination.com/theme/assets/img/shape/Ballon.png" alt="svg" />
+      </div>
+      <div class="shape-mockup d-none d-xl-block jump z-index-negative" data-top="10%" data-right="10%">
+        <img src="https://www.srinagardestination.com/theme/assets/img/shape/up-arrow.png" alt="svg" />
+      </div>
+      <div class="shape-mockup d-none d-xl-block jump z-index-negative" data-bottom="0%" data-left="0%">
+        <img class="plane2" src="https://www.srinagardestination.com/theme/assets/img/shape/plane2.png" alt="svg" />
+      </div>
+      <div class="shape-mockup d-none d-xl-block jump z-index-negative" data-bottom="15%" data-right="5%">
+        <img src="https://www.srinagardestination.com/theme/assets/img/shape/Lines.png" alt="svg" />
+      </div>
+      <div class="container">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-xl-5">
+            <div class="about-content">
+              <div class="title-area">
+                <span class="sec-subtitle">                About Us
+</span>
+                <h2 class="sec-title h1">
+                  We Are The Best For Your Travel
+                </h2>
+                <p class="sec-text">
+                  With over 15 years of experience in curating memorable travel experiences, our team is passionate about showcasing the best of Kashmir. Our dedicated staff of 7 travel enthusiasts ensures personalized service, catering to each traveler’s unique interests and preferences. We pride ourselves on our deep local knowledge and commitment to providing safe, comfortable, and enriching journeys.
+                </p>
+              </div>
+              <a href="https://www.srinagardestination.com/about-us" class="vs-btn style4 ">              View More
+</a>
             </div>
-
-            <a href="https://wa.me/917889799981" target="_blank" class="bg-[#25D366] text-white font-semibold px-8 py-3 rounded-full hover:bg-green-600 transition duration-300 text-lg glow-button inline-block shadow-[0_0_15px_rgba(37,211,102,0.5)]">
-                <i class="fab fa-whatsapp mr-2"></i> Message on WhatsApp
-            </a>
+          </div>
+          <div class="col-xl-6">
+            <div class="img-box3">
+              <img class="img1" src="https://www.srinagardestination.com/theme/assets/img/about/HOme about us.png" alt="about image" />
+              <div class="bottom-img">
+                <img class="img2" src="https://www.srinagardestination.com/theme/assets/img/about/Home about.png" alt="about image" />
+                <img class="img3" src="https://www.srinagardestination.com/theme/assets/img/about/about-1-3.jpg" alt="about image" />
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
-</main>
-
-<footer class="bg-brand-midnight border-t border-brand-deep pb-24 md:pb-8">
-    <div class="container mx-auto px-6 py-8">
-        <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-4">
-            <p class="text-gray-400 text-base">&copy; 2026 Bismillah Car Wash. All Rights Reserved.</p>
-            <div class="flex space-x-6">
-                <a href="https://wa.me/917889799981" target="_blank" class="text-gray-400 hover:text-[#25D366] transition"><i class="fab fa-whatsapp fa-lg"></i></a>
-                <a href="tel:7889799981" class="text-gray-400 hover:text-brand-cyan transition"><i class="fas fa-phone fa-lg"></i></a>
-                <a href="#contact" class="text-gray-400 hover:text-brand-cyan transition"><i class="fas fa-map-marker-alt fa-lg"></i></a>
+    <!--==============================
+    About Area End 
+  ==============================-->
+    <!--==============================
+    About Blog Area Start 
+  ==============================-->
+    <div class="space-top space-extra-bottom blog-wrapper1 shape-mockup-wrap">
+      <!-- <div class="shape-mockup d-none d-xl-block spin z-index-negative" data-top="-5%" data-left="-5%">
+      <img src="https://www.srinagardestination.com/theme/assets/img/shape/circle1.png" alt="circle">
+    </div> -->
+      <div class="shape-mockup d-none d-xl-block jump z-index-negative" data-bottom="5%" data-right="5%">
+        <img src="https://www.srinagardestination.com/theme/assets/img/shape/Dot.png" alt="Dots" />
+      </div>
+      <div class="container">
+        <div class="row justify-content-center text-center">
+          <div class="col-xxl-6 col-xl-7 col-lg-8 wow fadeInUp" data-wow-delay="0.3s">
+            <div class="title-area">
+              <span class="sec-subtitle">              Travel Essentials Tips
+</span>
+              <h2 class="sec-title h1">
+                Discover the Beauty of Kashmir with Us
+              </h2>
             </div>
+          </div>
         </div>
+        <div class="blog-style4">
+          <div class="blog-image">
+            <img src="https://www.srinagardestination.com/theme/assets/img/blog/About-Kashmir.png" alt="blog image" />
+          </div>
+          <div class="blog-content" data-bg-src="https://www.srinagardestination.com/theme/assets/img/shape/blog-bg.png">
+            <a class="blog-date" href="https://www.srinagardestination.com/about-us">            <i class="far fa-calendar-alt "></i>
+            About Kashmir
+</a>
+            <h3 class="blog-title">
+              <a href="https://www.srinagardestination.com/about-us">              A Time to Travel And Find Breathtaking Landscapes For
+              Relax
+</a>
+            </h3>
+            <p class="blog-text">
+              Nestled in the northernmost region of India, Kashmir is often referred to as “Paradise on Earth.” With its stunning landscapes, tranquil lakes, snow-capped mountains, and rich cultural heritage, Kashmir offers an unparalleled experience for every traveler.
+            </p>
+            <a class="vs-btn style4" href="https://www.srinagardestination.com/about-us">            Read More
+</a>
+          </div>
+        </div>
+      </div>
     </div>
-</footer>
-
-<script>
-    // --- PRELOADER LOGIC ---
-    window.addEventListener('load', () => {
-        const loader = document.getElementById('premium-loader');
-        
-        // Slight delay so the user can enjoy the fast animation (1 second)
-        setTimeout(() => {
-            loader.classList.add('loader-exit');
-            document.body.style.overflow = ''; // Restore scrolling
-            
-            // Remove from DOM after exit animation finishes
-            setTimeout(() => {
-                if(loader) loader.remove();
-            }, 700);
-        }, 1100); 
-    });
-
-
-    // --- Mobile menu toggle ---
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-    const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-
-    const toggleMenu = () => {
-        const isHidden = mobileMenu.classList.contains('hidden');
-        if (isHidden) {
-            mobileMenu.classList.remove('hidden');
-            mobileMenuOverlay.classList.remove('hidden');
-        } else {
-            mobileMenu.classList.add('hidden');
-            mobileMenuOverlay.classList.add('hidden');
-        }
-    };
-
-    if(mobileMenuButton) mobileMenuButton.addEventListener('click', toggleMenu);
-    if(mobileMenuCloseButton) mobileMenuCloseButton.addEventListener('click', toggleMenu);
-    
-    mobileMenuLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (!mobileMenu.classList.contains('hidden')) {
-                toggleMenu();
-            }
-        });
-    });
-
-    if(mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', toggleMenu);
-
-    // --- CODE PART 1: LIVE LIQUID ANIMATION (Passive Turbulence) ---
-    document.addEventListener('DOMContentLoaded', () => {
-        const turbulence = document.getElementById('turbulence');
-        if (turbulence) {
-            let time = 0;
-            const animateTurbulence = () => {
-                const bfX = 0.01 + Math.sin(time) * 0.002;
-                const bfY = 0.03 + Math.cos(time * 0.5) * 0.002;
-                turbulence.setAttribute('baseFrequency', `${bfX} ${bfY}`);
-                time += 0.005;
-                requestAnimationFrame(animateTurbulence);
-            };
-            animateTurbulence();
-        }
-    });
-
-    // --- CODE PART 2: INTERACTIVE LIQUID GLASS (Mouse Movement) ---
-    (function() {
-        'use strict';
-        if (window.liquidGlass) {
-            window.liquidGlass.destroy();
-        }
-        function smoothStep(a, b, t) {
-            t = Math.max(0, Math.min(1, (t - a) / (b - a)));
-            return t * t * (3 - 2 * t);
-        }
-        function length(x, y) {
-            return Math.sqrt(x * x + y * y);
-        }
-        function roundedRectSDF(x, y, width, height, radius) {
-            const qx = Math.abs(x) - width + radius;
-            const qy = Math.abs(y) - height + radius;
-            return Math.min(Math.max(qx, qy), 0) + length(Math.max(qx, 0), Math.max(qy, 0)) - radius;
-        }
-        function texture(x, y) {
-            return { type: 't', x, y };
-        }
-        function generateId() {
-            return 'liquid-glass-' + Math.random().toString(36).substr(2, 9);
-        }
-
-        class Shader {
-            constructor(options = {}) {
-                this.targetElement = options.targetElement || document.body;
-                this.width = this.targetElement.offsetWidth;
-                this.height = this.targetElement.offsetHeight;
-                this.fragment = options.fragment || ((uv) => texture(uv.x, uv.y));
-                this.canvasDPI = 1;
-                this.id = generateId();
-                this.mouse = { x: 0, y: 0 };
-                this.mouseUsed = false;
-
-                this.initElement();
-                this.setupObservers();
-                this.updateShader();
-            }
-
-            initElement() {
-                this.targetElement.style.backdropFilter = `url(#fisheye-lens-filter) url(#${this.id}_filter) blur(0px) brightness(1.1)`;
-                this.targetElement.style.webkitBackdropFilter = `url(#fisheye-lens-filter) url(#${this.id}_filter) blur(0px) brightness(1.1)`;
-
-                this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-                this.svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-                this.svg.style.cssText = 'position: absolute; width: 0; height: 0; pointer-events: none;';
-
-                const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-                const filter = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
-                filter.setAttribute('id', `${this.id}_filter`);
-                filter.setAttribute('filterUnits', 'userSpaceOnUse');
-                filter.setAttribute('colorInterpolationFilters', 'sRGB');
-                filter.setAttribute('x', '0');
-                filter.setAttribute('y', '0');
-                filter.setAttribute('width', '100%');
-                filter.setAttribute('height', '100%');
-
-                this.feImage = document.createElementNS('http://www.w3.org/2000/svg', 'feImage');
-                this.feImage.setAttribute('id', `${this.id}_map`);
-                this.feImage.setAttribute('width', '100%');
-                this.feImage.setAttribute('height', '100%');
-                this.feImage.setAttribute('preserveAspectRatio', 'none');
-
-                this.feDisplacementMap = document.createElementNS('http://www.w3.org/2000/svg', 'feDisplacementMap');
-                this.feDisplacementMap.setAttribute('in', 'SourceGraphic');
-                this.feDisplacementMap.setAttribute('in2', `${this.id}_map`);
-                this.feDisplacementMap.setAttribute('scale', '30');
-                this.feDisplacementMap.setAttribute('xChannelSelector', 'R');
-                this.feDisplacementMap.setAttribute('yChannelSelector', 'G');
-
-                filter.appendChild(this.feImage);
-                filter.appendChild(this.feDisplacementMap);
-                defs.appendChild(filter);
-                this.svg.appendChild(defs);
-
-                this.canvas = document.createElement('canvas');
-                this.canvas.width = this.width;
-                this.canvas.height = this.height;
-                this.context = this.canvas.getContext('2d');
-                document.body.appendChild(this.svg);
-            }
-
-            setupObservers() {
-                this.resizeObserver = new ResizeObserver(entries => {
-                    for (let entry of entries) {
-                        const { width, height } = entry.contentRect;
-                        this.width = width;
-                        this.height = height;
-                        this.canvas.width = width;
-                        this.canvas.height = height;
-                        this.updateShader();
-                    }
-                });
-                this.resizeObserver.observe(this.targetElement);
-
-                document.addEventListener('mousemove', (e) => {
-                    const rect = this.targetElement.getBoundingClientRect();
-                    this.mouse.x = (e.clientX - rect.left) / rect.width;
-                    this.mouse.y = (e.clientY - rect.top) / rect.height;
-                    
-                    if (this.mouseUsed && e.clientY < rect.bottom + 100) {
-                        this.updateShader();
-                    }
-                });
-            }
-
-            updateShader() {
-                const w = this.width;
-                const h = this.height;
-                if (w === 0 || h === 0) return;
-
-                const data = new Uint8ClampedArray(w * h * 4);
-                let maxScale = 0;
-                const rawValues = [];
-                const aspect = w / h;
-
-                for (let i = 0; i < data.length; i += 4) {
-                    const idx = i / 4;
-                    const x = idx % w;
-                    const y = Math.floor(idx / w);
-                    const uvX = x / w;
-                    const uvY = y / h;
-
-                    const pos = this.fragment(
-                        { x: uvX, y: uvY },
-                        this.mouse,
-                        aspect
-                    );
-
-                    const dx = pos.x * w - x;
-                    const dy = pos.y * h - y;
-                    maxScale = Math.max(maxScale, Math.abs(dx), Math.abs(dy));
-                    rawValues.push(dx, dy);
-                }
-
-                maxScale = Math.max(maxScale, 0.1) * 0.5;
-                let index = 0;
-
-                for (let i = 0; i < data.length; i += 4) {
-                    const r = rawValues[index++] / maxScale + 0.5;
-                    const g = rawValues[index++] / maxScale + 0.5;
-
-                    data[i] = Math.min(255, Math.max(0, r * 255));
-                    data[i + 1] = Math.min(255, Math.max(0, g * 255));
-                    data[i + 2] = 0;
-                    data[i + 3] = 255;
-                }
-
-                this.context.putImageData(new ImageData(data, w, h), 0, 0);
-                this.feImage.setAttributeNS('http://www.w3.org/1999/xlink', 'href', this.canvas.toDataURL());
-            }
-
-            destroy() {
-                if(this.resizeObserver) this.resizeObserver.disconnect();
-                this.svg.remove();
-                this.targetElement.style.backdropFilter = '';
-                this.targetElement.style.webkitBackdropFilter = '';
-            }
-        }
-
-        function createLiquidGlass() {
-            const headerElement = document.getElementById('header');
-            if(!headerElement) return;
-
-            const shader = new Shader({
-                targetElement: headerElement,
-                fragment: (uv, mouse, aspect) => {
-                    const ix = uv.x - 0.5;
-                    const iy = uv.y - 0.5;
-                    const distanceToEdge = roundedRectSDF(
-                        ix,
-                        iy,
-                        0.48,
-                        0.45,
-                        0.1
-                    );
-                    const displacement = smoothStep(0.2, 0, distanceToEdge);
-                    const scaled = smoothStep(0, 1, displacement);
-                    return texture(ix * scaled + 0.5, iy * scaled + 0.5);
-                }
-            });
-            window.liquidGlass = shader;
-        }
-
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', createLiquidGlass);
-        } else {
-            createLiquidGlass();
-        }
-    })();
-</script>
-</body>
+    <!--==============================
+    About Blog Area End 
+  ==============================-->
+    <!--==============================
+    Fact Area Start
+  ==============================-->
+    <section class="fact--layout1 bg-black">
+      <div class="shape-mockup d-none d-xl-block z-index-negative" data-top="0%" data-right="0%" data-left="0%">
+        <img class="w-100" src="https://www.srinagardestination.com/theme/assets/img/shape/fact-shape-1.svg" alt="svg" />
+      </div>
+      <div class="shape-mockup d-none d-xl-block z-index-negative" data-bottom="0%" data-right="0%" data-left="0%">
+        <img class="w-100" src="https://www.srinagardestination.com/theme/assets/img/shape/fact-shape-2.svg" alt="svg" />
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 mb-30">
+            <div class="white-title">
+              <span class="sec-subtitle">              Are You Ready To Travel
+</span>
+              <h2 class="sec-title h1">
+                Choose Our Tour Types and Enjoy Now
+              </h2>
+              <p class="sec-text pe-xl-5 mb-0 ">
+                Explore our diverse range of packages and let us inspire your next adventure with exceptional service and expert guidance.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="row dfflex">
+              <div class="col-xl-4 col-md-4 col-sm-4 col-auto">
+                <div class="fact-block">
+                  <div class="fact-block__icon" data-bg-src="https://www.srinagardestination.com/theme/assets/img/shape/fact-icon-shape.svg">
+                    <img src="https://www.srinagardestination.com/theme/assets/img/icons/fact-1-1.svg" alt="fact" />
+                  </div>
+                  <span class="fact-block__number">                  5k
+</span>
+                  <p class="fact-block__text">
+                    Happy Traveler
+                  </p>
+                </div>
+              </div>
+              <div class="col-xl-4 col-sm-4 col-md-4 col-auto">
+                <div class="fact-block">
+                  <div class="fact-block__icon" data-bg-src="https://www.srinagardestination.com/theme/assets/img/shape/fact-icon-shape.svg">
+                    <img src="https://www.srinagardestination.com/theme/assets/img/icons/fact-1-2.svg" alt="fact" />
+                  </div>
+                  <span class="fact-block__number">                  97.9%
+</span>
+                  <p class="fact-block__text">
+                    Satisfaction Rate
+                  </p>
+                </div>
+              </div>
+              <div class="col-xl-4 col-md-4 col-sm-4 col-auto">
+                <div class="fact-block">
+                  <div class="fact-block__icon" data-bg-src="https://www.srinagardestination.com/theme/assets/img/shape/fact-icon-shape.svg">
+                    <img src="https://www.srinagardestination.com/theme/assets/img/icons/phone-icon-2.svg" alt="fact" />
+                  </div>
+                  <span class="fact-block__number">                  24/7
+</span>
+                  <p class="fact-block__text">
+                    Help Support
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--==============================
+    Fact Area End
+  ==============================-->
+    <section class="cate--layout5">
+      <div class="container">
+        <div class="cate__box background-image" style="background-image: url(&#34;assets/img/shape/cate-bg.png&#34;);">
+          <div class="row">
+            <div class="col-lg-5 mx-auto">
+              <div class="title-area white-title text-center">
+                <!-- <span class="sec-subtitle">Choose Categories</span> -->
+                <h2 class="sec-title h1">
+                  Approved By
+                </h2>
+              </div>
+            </div>
+          </div>
+          <div class="cate__list">
+            <a class="cate-block" href="#">            <img src="https://www.srinagardestination.com/theme/assets/img/govt.png" alt="fact" width="180px" />
+</a>
+            <a class="cate-block" href="#">            <img src="https://www.srinagardestination.com/theme/assets/img/iata.png" alt="fact" width="180px" />
+</a>
+            <a class="cate-block" href="#">            <img src="https://www.srinagardestination.com/theme/assets/img/j&amp;k.png" alt="fact" width="180px" />
+</a>
+            <a class="cate-block" href="#">            <img src="https://www.srinagardestination.com/theme/assets/img/taai.png" alt="fact" width="180px" />
+</a>
+            <a class="cate-block" href="#">            <img src="https://www.srinagardestination.com/theme/assets/img/iatte.png" alt="fact" width="180px" />
+</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <style type="text/css">
+    </style>
+    <!--==============================
+    Tour Package Area Start 
+  ==============================-->
+    <section class="tour--layout4 space space-extra-bottom shape-mockup-wrap">
+      <div class="container ">
+        <div class="row justify-content-center text-center">
+          <div class="col-xl-6 col-lg-8 wow fadeInUp" data-wow-delay="0.3s">
+            <div class="title-area">
+              <span class="sec-subtitle">              Awesome Tours
+</span>
+              <h2 class="sec-title h1">
+                Why Travel to Kashmir?
+              </h2>
+              <p class="sec-text">
+                Whether you’re dreaming of exploring the serene landscapes of Kashmir, embarking on an adventurous trek, or indulging in luxurious experiences — we’re dedicated to helping you discover travel like never before.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row vs-carousel" data-slide-show="3" data-arrows="false" data-lg-slide-show="3" data-md-slide-show="2" data-sm-slide-show="1">
+          <div class="col-xl-3 col-lg-6 col-sm-6">
+            <div class="package-style3">
+              <div class="package-img">
+                <a href="https://www.srinagardestination.com/kashmir-tour-packages">                <img class="w-100" src="https://www.srinagardestination.com/theme/assets/img/tours/Breathtaking Scenery.png" alt="Package Image" />
+</a>
+              </div>
+              <div class="package-content">
+                <h3 class="package-title">
+                  <a href="https://www.srinagardestination.com/kashmir-tour-packages">                  Breathtaking Scenery
+</a>
+                </h3>
+                <p class="package-text">
+                  From the serene Dal Lake in Srinagar to the majestic peaks of Gulmarg, Kashmir’s natural beauty is nothing short of awe-inspiring.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-sm-6">
+            <div class="package-style3">
+              <div class="package-img">
+                <a href="https://www.srinagardestination.com/kashmir-tour-packages">                <img class="w-100" src="https://www.srinagardestination.com/theme/assets/img/tours/Adventure Await.png" alt="Package Image" />
+</a>
+              </div>
+              <div class="package-content">
+                <h3 class="package-title">
+                  <a href="https://www.srinagardestination.com/kashmir-tour-packages">                  Adventure Awaits
+</a>
+                </h3>
+                <p class="package-text">
+                  Whether you’re an adrenaline junkie or just looking to enjoy the great outdoors, Kashmir offers activities like skiing, trekking, and houseboat stays.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-sm-6">
+            <div class="package-style3">
+              <div class="package-img">
+                <a href="https://www.srinagardestination.com/kashmir-tour-packages">                <img class="w-100" src="https://www.srinagardestination.com/theme/assets/img/tours/Rich Culture.png" alt="Package Image" />
+</a>
+              </div>
+              <div class="package-content">
+                <h3 class="package-title">
+                  <a href="https://www.srinagardestination.com/kashmir-tour-packages">                  Rich Culture
+</a>
+                </h3>
+                <p class="package-text">
+                  Experience the warm hospitality of the Kashmiri people, explore the vibrant markets, and savor the delicious local cuisine.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-sm-6">
+            <div class="package-style3">
+              <div class="package-img">
+                <a href="https://www.srinagardestination.com/kashmir-tour-packages">                <img class="w-100" src="https://www.srinagardestination.com/theme/assets/img/tours/Historical Wonders.png" alt="Package Image" />
+</a>
+              </div>
+              <div class="package-content">
+                <h3 class="package-title">
+                  <a href="https://www.srinagardestination.com/kashmir-tour-packages">                  Historical Wonders
+</a>
+                </h3>
+                <p class="package-text">
+                  Visit ancient temples, Mughal gardens, and historic mosques that tell the tales of Kashmir’s rich history.
+                  <br />
+                  <br />
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-sm-6">
+            <div class="package-style3">
+              <div class="package-img">
+                <a href="https://www.srinagardestination.com/kashmir-tour-packages">                <img class="w-100" src="https://www.srinagardestination.com/theme/assets/img/tours/Breathtaking Scenery.png" alt="Package Image" />
+</a>
+              </div>
+              <div class="package-content">
+                <h3 class="package-title">
+                  <a href="https://www.srinagardestination.com/kashmir-tour-packages">                  Breathtaking Scenery
+</a>
+                </h3>
+                <p class="package-text">
+                  From the serene Dal Lake in Srinagar to the majestic peaks of Gulmarg, Kashmir’s natural beauty is nothing short of awe-inspiring.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-sm-6">
+            <div class="package-style3">
+              <div class="package-img">
+                <a href="https://www.srinagardestination.com/kashmir-tour-packages">                <img class="w-100" src="https://www.srinagardestination.com/theme/assets/img/tours/Adventure Await.png" alt="Package Image" />
+</a>
+              </div>
+              <div class="package-content">
+                <h3 class="package-title">
+                  <a href="https://www.srinagardestination.com/kashmir-tour-packages">                  Adventure Awaits
+</a>
+                </h3>
+                <p class="package-text">
+                  Whether you’re an adrenaline junkie or just looking to enjoy the great outdoors, Kashmir offers activities like skiing, trekking, and houseboat stays.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-sm-6">
+            <div class="package-style3">
+              <div class="package-img">
+                <a href="https://www.srinagardestination.com/kashmir-tour-packages">                <img class="w-100" src="https://www.srinagardestination.com/theme/assets/img/tours/Rich Culture.png" alt="Package Image" />
+</a>
+              </div>
+              <div class="package-content">
+                <h3 class="package-title">
+                  <a href="https://www.srinagardestination.com/kashmir-tour-packages">                  Rich Culture
+</a>
+                </h3>
+                <p class="package-text">
+                  Experience the warm hospitality of the Kashmiri people, explore the vibrant markets, and savor the delicious local cuisine.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-sm-6">
+            <div class="package-style3">
+              <div class="package-img">
+                <a href="https://www.srinagardestination.com/kashmir-tour-packages">                <img class="w-100" src="https://www.srinagardestination.com/theme/assets/img/tours/Historical Wonders.png" alt="Package Image" />
+</a>
+              </div>
+              <div class="package-content">
+                <h3 class="package-title">
+                  <a href="https://www.srinagardestination.com/kashmir-tour-packages">                  Historical Wonders
+</a>
+                </h3>
+                <p class="package-text">
+                  Visit ancient temples, Mughal gardens, and historic mosques that tell the tales of Kashmir’s rich history.
+                  <br />
+                  <br />
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--==============================
+    Tour Package Area End 
+  ==============================-->
+    <!--==============================
+     Destinations Area Start 
+  ==============================-->
+    <section class="benefits--layout1 space-top space-extra-bottom">
+      <div class="benefits-element1">
+      </div>
+      <div class="img1" data-bg-src="https://www.srinagardestination.com/theme/assets/img/benefits/b-4-1.jpg">
+      </div>
+      <div class="container">
+        <div class="row justify-content-end">
+          <div class="col-lg-6 mb-30">
+            <div class="title-area">
+              <span class="sec-subtitle">              We are Srinagar Destinations
+</span>
+              <h2 class="sec-title h1">
+                Why Choose Us?
+              </h2>
+            </div>
+            <div class="item">
+              <div class="item__icon">
+                <img src="https://www.srinagardestination.com/theme/assets/img/icons/leader.png" alt="icon 1" />
+              </div>
+              <div class="item__content">
+                <h3 class="item__title h4">
+                  Tailored Experiences
+                </h3>
+                <p class="item__text">
+                  Our packages are designed to cater to your specific needs, whether you’re looking for a romantic getaway, a family vacation, or an adventure trip.
+                </p>
+              </div>
+            </div>
+            <div class="item">
+              <div class="item__icon">
+                <img src="https://www.srinagardestination.com/theme/assets/img/icons/security.png" alt="icon 1" />
+              </div>
+              <div class="item__content">
+                <h3 class="item__title h4">
+                  Safety First
+                </h3>
+                <p class="item__text">
+                  Your safety is our priority. We ensure all our trips are conducted with the highest safety standards in mind.
+                </p>
+              </div>
+            </div>
+            <div class="item">
+              <div class="item__icon">
+                <img src="https://www.srinagardestination.com/theme/assets/img/icons/expertise.png" alt="icon 1" />
+              </div>
+              <div class="item__content">
+                <h3 class="item__title h4">
+                  Expert Guides
+                </h3>
+                <p class="item__text">
+                  Our local guides have extensive knowledge of Kashmir, ensuring you get the most authentic experience.
+                </p>
+              </div>
+            </div>
+            <div class="item">
+              <div class="item__icon">
+                <img src="https://www.srinagardestination.com/theme/assets/img/icons/24-hours-support.png" alt="icon 1" />
+              </div>
+              <div class="item__content">
+                <h3 class="item__title h4">
+                  24/7 Support
+                </h3>
+                <p class="item__text">
+                  We’re here for you at every step of your journey, from planning to the moment you return home.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--==============================
+     Destinations Area End 
+  ==============================-->
+    <!--==============================
+      Testimonial Area Start 
+    ==============================-->
+    <section class="space testimonial-style1" data-bg-src="https://www.srinagardestination.com/theme/assets/img/bg/testimonial-bg.jpg">
+      <div class="container">
+        <div class="row justify-content-between align-items-center">
+          <div class="col-xxl-5 col-xl-5">
+            <div class="title-area">
+              <span class="sec-subtitle">              Testimonials
+</span>
+              <h2 class="sec-title h1">
+                What’s Our Client’s Words
+              </h2>
+              <p class="sec-text">
+                Hear from our clients on how our services have impressed them. Client satisfaction isn’t just a goal ,it’s our standard.
+              </p>
+              <a href="https://www.google.com/search?q=srinagar+destintion+tour+company&amp;sca_esv=9022223ce29[…]RNld20SSDIlEAIiIXNyaW5hZ2FyIGRlc3RpbmF0aW9uIHRvdXIgY29tcGFueQ" class="vs-btn style3">              View More
+</a>
+            </div>
+          </div>
+          <div class="col-xxl-6 col-xl-7">
+            <div class="testi-style1">
+              <div class="testi-avaters vs-slider-tab" data-asnavfor="#testId">
+                <button class="tab-btn active">
+                  <img src="https://www.srinagardestination.com/theme/assets/img/testimonial/avater-1-1.jpg" alt="avater" />
+                </button>
+                <button class="tab-btn">
+                  <img src="https://www.srinagardestination.com/theme/assets/img/testimonial/avater-1-2.jpg" alt="avater" />
+                </button>
+                <button class="tab-btn">
+                  <img src="https://www.srinagardestination.com/theme/assets/img/testimonial/avater-1-3.jpg" alt="avater" />
+                </button>
+                <button class="tab-btn">
+                  <img src="https://www.srinagardestination.com/theme/assets/img/testimonial/avater-1-4.jpg" alt="avater" />
+                </button>
+              </div>
+              <div class="testi-shape">
+              </div>
+              <div class="vs-carousel" id="testId" data-slide-show="1" data-fade="true">
+                <div class="position-relative z-index-common">
+                  <div class="testi-quote">
+                    <img src="https://www.srinagardestination.com/theme/assets/img/shape/quote1.png" alt="quote" />
+                  </div>
+                  <div class="testi-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                  <p class="testi-text">
+                    Got my stay and travel sorted for a good price. Their houseboat serves very good food and is pretty good enjoyed my short stay there
+                  </p>
+                  <div class="testi-avater">
+                    <img src="https://www.srinagardestination.com/theme/assets/img/testimonial/avater-1-1.jpg" alt="customer image" />
+                  </div>
+                  <h3 class="testi-name">
+                    Harpreet Chawla
+                  </h3>
+                  <span class="testi-degi">                  Mumbai
+</span>
+                </div>
+                <div class="position-relative z-index-common">
+                  <div class="testi-quote">
+                    <img src="https://www.srinagardestination.com/theme/assets/img/shape/quote1.png" alt="quote" />
+                  </div>
+                  <div class="testi-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                  <p class="testi-text">
+                    It’s a very good experience, every thing as per plan. Provided driver also a good guy, he help us all possible way. My children also enjoy a lot.
+                  </p>
+                  <div class="testi-avater">
+                    <img src="https://www.srinagardestination.com/theme/assets/img/testimonial/avater-1-2.jpg" alt="customer image" />
+                  </div>
+                  <h3 class="testi-name">
+                    Nishit Pandya
+                  </h3>
+                  <span class="testi-degi">                  Bangalore
+</span>
+                </div>
+                <div class="position-relative z-index-common">
+                  <div class="testi-quote">
+                    <img src="https://www.srinagardestination.com/theme/assets/img/shape/quote1.png" alt="quote" />
+                  </div>
+                  <div class="testi-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                  <p class="testi-text">
+                    The Kashmir tour exceeded all our expectations. Every detail was well taken care of, and the experience was unforgettable.
+                  </p>
+                  <div class="testi-avater">
+                    <img src="https://www.srinagardestination.com/theme/assets/img/testimonial/avater-1-3.jpg" alt="customer image" />
+                  </div>
+                  <h3 class="testi-name">
+                    John &amp; Sarah
+                  </h3>
+                  <span class="testi-degi">                  UK
+</span>
+                </div>
+                <div class="position-relative z-index-common">
+                  <div class="testi-quote">
+                    <img src="https://www.srinagardestination.com/theme/assets/img/shape/quote1.png" alt="quote" />
+                  </div>
+                  <div class="testi-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                  <p class="testi-text">
+                    Our trip to Kashmir was a dream come true. The scenery, the people, and the service provided by the agency were exceptional. Highly recommended!
+                  </p>
+                  <div class="testi-avater">
+                    <img src="https://www.srinagardestination.com/theme/assets/img/testimonial/avater-1-4.jpg" alt="customer image" />
+                  </div>
+                  <h3 class="testi-name">
+                    Rajesh &amp; Priya
+                  </h3>
+                  <span class="testi-degi">                  Delhi
+</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--==============================
+    Testimonial Area End 
+  ==============================-->
+    <!--==============================
+      Tour Package Area Start 
+    ==============================-->
+    <section class="space bg-light shape-mockup-wrap" data-bg-src="https://www.srinagardestination.com/theme/assets/img/shape/Bg.png">
+      <div class="shape-mockup d-none d-xl-block jump z-index-negative" data-bottom="20%" data-left="5%">
+        <img src="https://www.srinagardestination.com/theme/assets/img/shape/Dot.png" alt="Dots" />
+      </div>
+      <div class="shape-mockup d-none d-xl-block spin z-index-negative" data-bottom="-5%" data-right="-5%">
+        <img src="https://www.srinagardestination.com/theme/assets/img/shape/circle1.png" alt="Circle" />
+      </div>
+      <div class="shape-mockup d-none d-xl-block ripple-animation z-index-negative" data-top="10%" data-left="10%">
+        <img src="https://www.srinagardestination.com/theme/assets/img/shape/Plane.png" alt="plane" />
+      </div>
+      <div class="container ">
+        <div class="row justify-content-center text-center">
+          <div class="col-xl-6 col-lg-8 wow fadeInUp" data-wow-delay="0.3s">
+            <div class="title-area">
+              <span class="sec-subtitle">              Awesome Tours
+</span>
+              <h2 class="sec-title h1">
+                Our Kashmir Packages
+              </h2>
+              <p class="sec-text">
+                Our packages are carefully crafted to provide a comprehensive and unforgettable experience of Kashmir, catering to all kinds of travelers. Whether you&#39;re looking for adventure, relaxation, cultural immersion, or luxury, we have the perfect option for you.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row vs-carousel" data-slide-show="4" data-arrows="false" data-lg-slide-show="3" data-md-slide-show="2" data-sm-slide-show="1">
+          <div class="col-xl-3 col-lg-6 col-sm-6">
+            <div class="package-style1">
+              <div class="package-img">
+                <a href="https://www.srinagardestination.com/srinagar-tour-packages">                <img class="w-100" src="https://www.srinagardestination.com/theme/assets/img/tours/Srinagar.png" alt="Package Image" />
+</a>
+              </div>
+              <div class="package-content">
+                <h3 class="package-title">
+                  <a href="https://www.srinagardestination.com/srinagar-tour-packages">                  Srinagar Delight
+</a>
+                </h3>
+                <p class="package-text">
+                  A 4-day package that includes a houseboat stay on Dal Lake, a shikara ride, and visits to Mughal gardens and local markets.
+                  <br />
+                  <br />
+                  <br />
+                </p>
+                <div class="package-meta">
+                  <a href="#">                  <i class="fas fa-calendar-alt"></i>
+                  Days: 4
+</a>
+                  <a href="#">                  <i class="fas fa-user"></i>
+                  People: 3
+</a>
+                </div>
+                <!-- <div class="package-footer">
+                <a href="https://www.srinagardestination.com/srinagar-tour-packages" class="vs-btn style4">View Details</a>
+              </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-sm-6">
+            <div class="package-style1">
+              <div class="package-img">
+                <a href="https://www.srinagardestination.com/gulmarg-tour-packages">                <img class="w-100" src="https://www.srinagardestination.com/theme/assets/img/tours/Gulmarg.png" alt="Package Image" />
+</a>
+              </div>
+              <div class="package-content">
+                <h3 class="package-title">
+                  <a href="https://www.srinagardestination.com/gulmarg-tour-packages">                  Adventure in Gulmarg
+</a>
+                </h3>
+                <p class="package-text">
+                  A 5-day package perfect for adventure lovers. Enjoy skiing, a gondola ride, and a trek to Alpather Lake.
+                  <br />
+                  <br />
+                  <br />
+                </p>
+                <div class="package-meta">
+                  <a href="#">                  <i class="fas fa-calendar-alt"></i>
+                  Days: 5
+</a>
+                  <a href="#">                  <i class="fas fa-user"></i>
+                  People: 3
+</a>
+                </div>
+                <!-- <div class="package-footer">
+                <a href="https://www.srinagardestination.com/gulmarg-tour-packages" class="vs-btn style4">View Details</a>
+              </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-sm-6">
+            <div class="package-style1">
+              <div class="package-img">
+                <a href="https://www.srinagardestination.com/pahalgam-tour-packages">                <img class="w-100" src="https://www.srinagardestination.com/theme/assets/img/tours/Pahalgam.png" alt="Package Image" />
+</a>
+              </div>
+              <div class="package-content">
+                <h3 class="package-title">
+                  <a href="https://www.srinagardestination.com/pahalgam-tour-packages">                  Pahalgam &amp; Beyond
+</a>
+                </h3>
+                <p class="package-text">
+                  A 6-day journey through Pahalgam, Sonmarg, and Betaab Valley, offering a mix of relaxation and adventure in some of the most picturesque valleys of Kashmir.
+                </p>
+                <div class="package-meta">
+                  <a href="#">                  <i class="fas fa-calendar-alt"></i>
+                  Days: 6
+</a>
+                  <a href="#">                  <i class="fas fa-user"></i>
+                  People: 2
+</a>
+                </div>
+                <!-- <div class="package-footer">
+                <a href="https://www.srinagardestination.com/pahalgam-tour-packages" class="vs-btn style4">View Details</a>
+              </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-sm-6">
+            <div class="package-style1">
+              <div class="package-img">
+                <a href="https://www.srinagardestination.com/kashmir-tour-packages">                <img class="w-100" src="https://www.srinagardestination.com/theme/assets/img/tours/Kashmir.png" alt="Package Image" />
+</a>
+              </div>
+              <div class="package-content">
+                <h3 class="package-title">
+                  <a href="https://www.srinagardestination.com/kashmir-tour-packages">                  Luxury Kashmir
+</a>
+                </h3>
+                <p class="package-text">
+                  A 7-day luxurious experience that combines stays in premium hotels and houseboats, private guided tours, and exclusive dining experiences.
+                  <br />
+                  <br />
+                </p>
+                <div class="package-meta">
+                  <a href="#">                  <i class="fas fa-calendar-alt"></i>
+                  Days: 7
+</a>
+                  <a href="#">                  <i class="fas fa-user"></i>
+                  People: 3
+</a>
+                </div>
+                <!-- <div class="package-footer">
+                <a href="https://www.srinagardestination.com/kashmir-tour-packages" class="vs-btn style4">View Details</a>
+              </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-sm-6">
+            <div class="package-style1">
+              <div class="package-img">
+                <a href="https://www.srinagardestination.com/srinagar-tour-packages">                <img class="w-100" src="https://www.srinagardestination.com/theme/assets/img/tours/Srinagar.png" alt="Package Image" />
+</a>
+              </div>
+              <div class="package-content">
+                <h3 class="package-title">
+                  <a href="https://www.srinagardestination.com/srinagar-tour-packages">                  Srinagar Delight
+</a>
+                </h3>
+                <p class="package-text">
+                  A 4-day package that includes a houseboat stay on Dal Lake, a shikara ride, and visits to Mughal gardens and local markets.
+                  <br />
+                  <br />
+                  <br />
+                </p>
+                <div class="package-meta">
+                  <a href="#">                  <i class="fas fa-calendar-alt"></i>
+                  Days: 4
+</a>
+                  <a href="#">                  <i class="fas fa-user"></i>
+                  People: 3
+</a>
+                </div>
+                <!-- <div class="package-footer">
+                <a href="https://www.srinagardestination.com/srinagar-tour-packages" class="vs-btn style4">View Details</a>
+              </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-sm-6">
+            <div class="package-style1">
+              <div class="package-img">
+                <a href="https://www.srinagardestination.com/gulmarg-tour-packages">                <img class="w-100" src="https://www.srinagardestination.com/theme/assets/img/tours/Gulmarg.png" alt="Package Image" />
+</a>
+              </div>
+              <div class="package-content">
+                <h3 class="package-title">
+                  <a href="https://www.srinagardestination.com/gulmarg-tour-packages">                  Adventure in Gulmarg
+</a>
+                </h3>
+                <p class="package-text">
+                  A 5-day package perfect for adventure lovers. Enjoy skiing, a gondola ride, and a trek to Alpather Lake.
+                  <br />
+                  <br />
+                  <br />
+                </p>
+                <div class="package-meta">
+                  <a href="#">                  <i class="fas fa-calendar-alt"></i>
+                  Days: 5
+</a>
+                  <a href="#">                  <i class="fas fa-user"></i>
+                  People: 3
+</a>
+                </div>
+                <!-- <div class="package-footer">
+                <a href="https://www.srinagardestination.com/gulmarg-tour-packages" class="vs-btn style4">View Details</a>
+              </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-sm-6">
+            <div class="package-style1">
+              <div class="package-img">
+                <a href="https://www.srinagardestination.com/pahalgam-tour-packages">                <img class="w-100" src="https://www.srinagardestination.com/theme/assets/img/tours/Pahalgam.png" alt="Package Image" />
+</a>
+              </div>
+              <div class="package-content">
+                <h3 class="package-title">
+                  <a href="https://www.srinagardestination.com/pahalgam-tour-packages">                  Pahalgam &amp; Beyond
+</a>
+                </h3>
+                <p class="package-text">
+                  A 6-day journey through Pahalgam, Sonmarg, and Betaab Valley, offering a mix of relaxation and adventure in some of the most picturesque valleys of Kashmir.
+                </p>
+                <div class="package-meta">
+                  <a href="#">                  <i class="fas fa-calendar-alt"></i>
+                  Days: 6
+</a>
+                  <a href="#">                  <i class="fas fa-user"></i>
+                  People: 3
+</a>
+                </div>
+                <!-- <div class="package-footer">
+                <a href="https://www.srinagardestination.com/pahalgam-tour-packages" class="vs-btn style4">View Details</a>
+              </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-sm-6">
+            <div class="package-style1">
+              <div class="package-img">
+                <a href="https://www.srinagardestination.com/kashmir-tour-packages">                <img class="w-100" src="https://www.srinagardestination.com/theme/assets/img/tours/Kashmir.png" alt="Package Image" />
+</a>
+              </div>
+              <div class="package-content">
+                <h3 class="package-title">
+                  <a href="https://www.srinagardestination.com/kashmir-tour-packages">                  Luxury Kashmir
+</a>
+                </h3>
+                <p class="package-text">
+                  A 7-day luxurious experience that combines stays in premium hotels and houseboats, private guided tours, and exclusive dining experiences.
+                  <br />
+                  <br />
+                </p>
+                <div class="package-meta">
+                  <a href="#">                  <i class="fas fa-calendar-alt"></i>
+                  Days: 7
+</a>
+                  <a href="#">                  <i class="fas fa-user"></i>
+                  People: 3
+</a>
+                </div>
+                <!-- <div class="package-footer">
+                <a href="https://www.srinagardestination.com/kashmir-tour-packages" class="vs-btn style4">View Details</a>
+              </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center pt-lg-2">
+          <a href="https://www.srinagardestination.com/destinations" class="vs-btn">          View More
+</a>
+        </div>
+      </div>
+    </section>
+    <!--==============================
+      Tour Package Area End 
+    ==============================-->
+    <!--==============================
+	  Footer Area
+	============================== -->
+    <footer class="footer-layout5 shape-mockup-wrap z-index-common" data-bg-src="https://www.srinagardestination.com/theme/assets/img/bg/footer-bg-5.jpg">
+      <div class="shape-mockup d-none d-xl-block z-index-n1" data-top="0" data-right="0%" data-left="0%">
+        <img class="w-100" src="https://www.srinagardestination.com/theme/assets/img/shape/footer-5-1.png" alt="svg" />
+      </div>
+      <div class="widget-area2">
+        <div class="container">
+          <div class="row g-5 justify-content-between">
+            <div class="col-md-6 col-xl-3">
+              <div class="widget footer-widget">
+                <div class="vs-widget-about">
+                  <div class="footer-logo text-center d-block text-md-start">
+                    <a href="https://www.srinagardestination.com/">                    <img src="https://www.srinagardestination.com/theme/assets/img/logo.jpeg" alt="kashmir" style="width:90px" ;="" />
+</a>
+                  </div>
+                  <p class="footer-text">
+                    There are many variations of passages of available, but the majority have of
+                  suffered alteration in There are many variations of passages.
+                  </p>
+                  <div class="social-style1">
+                    <!-- <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a> -->
+                    <a href="https://www.instagram.com/srinagar_destination?igsh=MWRsNWppaGR6aDFnMQ==" target="_blank">                    <i class="fab fa-instagram"></i>
+</a>
+                    <!-- <a href="#" target="_blank"><i class="fab fa-pinterest-p"></i></a>
+                  <a href="#" target="_blank"><i class="fab fa-twitter"></i></a> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-2">
+              <div class="widget widget_nav_menu footer-widget">
+                <h3 class="widget_title">
+                  Useful Links
+                </h3>
+                <div class="menu-all-pages-container">
+                  <ul class="menu">
+                    <li>
+                      <a href="https://www.srinagardestination.com/">                      Home
+</a>
+                    </li>
+                    <li>
+                      <a href="https://www.srinagardestination.com/about-us">                      About Us
+</a>
+                    </li>
+                    <li>
+                      <a href="https://www.srinagardestination.com/destinations">                      Destinations
+</a>
+                    </li>
+                    <li>
+                      <a href="https://www.srinagardestination.com/contact">                      Contact Us
+</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+              <div class="widget widget_nav_menu footer-widget">
+                <h3 class="widget_title">
+                  Tour Packages
+                </h3>
+                <div class="menu-all-pages-container">
+                  <ul class="menu">
+                    <li>
+                      <a href="https://www.srinagardestination.com/tour-packages/heavenly-kashmir">                      Heavenly Kashmir
+</a>
+                    </li>
+                    <li>
+                      <a href="https://www.srinagardestination.com/tour-packages/paradise-on-kashmir">                      Paradise on Kashmir
+</a>
+                    </li>
+                    <li>
+                      <a href="https://www.srinagardestination.com/tour-packages/honeymoon-package">                      Honeymoon Package
+</a>
+                    </li>
+                    <li>
+                      <a href="https://www.srinagardestination.com/tour-packages/nature-of-kashmir">                      Nature of Kashmir
+</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <div class="widget footer-widget">
+                <h4 class="widget_title">
+                  Reach Us
+                </h4>
+                <ul class="header-contact">
+                  <li>
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:srinagardestination@gmail.com">                    srinagardestination@gmail.com
+</a>
+                  </li>
+                  <li>
+                    <i class="fas fa-phone-alt"></i>
+                    <a href="tel:+919906008080">                    +91 9906 008 080
+</a>
+                  </li>
+                  <li>
+                    <i class="fas fa-phone-alt"></i>
+                    <a href="tel:+918899734759">                    +91 8899 734 759
+</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="copyright-wrap">
+          <div class="row justify-content-between align-items-center">
+            <div class="col-lg-auto">
+              <p class="copyright-text">
+                Copyright
+                <i class="fal fa-copyright"></i>
+                <script>
+                  document.write(new Date().getFullYear())
+                </script>
+                <a href="https://www.srinagardestination.com/">                Srinagar Destinations
+</a>
+                .
+              All Rights Reserved By
+                <a href="https://hungercat.com/">                Hungercat
+</a>
+              </p>
+            </div>
+            <!--  <div class="col-auto d-none d-lg-block">
+            <div class="copyright-menu">
+              <ul class="list-unstyled">
+                <li><a href="#">Privacy</a></li>
+                <li><a href="#">Terms & Conditions</a></li>
+              </ul>
+            </div>
+          </div> -->
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- ********************************
+    Code Ends Here 
+	********************************* -->
+    <!-- Scroll To Top -->
+    <a href="#" class="scrollToTop scroll-btn">    <i class="far fa-arrow-up"></i>
+</a>
+    <!-- ==============================
+    All Js File
+  ================================ -->
+    <!-- Jquery -->
+    <script src="https://www.srinagardestination.com/theme/assets/js/vendor/jquery-3.6.0.min.js">
+    </script>
+    <!-- Slick Slider -->
+    <script src="https://www.srinagardestination.com/theme/assets/js/slick.min.js">
+    </script>
+    <!-- Bootstrap -->
+    <script src="https://www.srinagardestination.com/theme/assets/js/bootstrap.min.js">
+    </script>
+    <!-- Magnific Popup -->
+    <script src="https://www.srinagardestination.com/theme/assets/js/jquery.magnific-popup.min.js">
+    </script>
+    <!-- jquery Ui -->
+    <script src="https://www.srinagardestination.com/theme/assets/js/jquery-ui.min.js">
+    </script>
+    <!-- Circle Progress -->
+    <script src="https://www.srinagardestination.com/theme/assets/js/circle-progress.min.js">
+    </script>
+    <!-- isotope -->
+    <script src="https://www.srinagardestination.com/theme/assets/js/imagesLoaded.js">
+    </script>
+    <script src="https://www.srinagardestination.com/theme/assets/js/isotope.js">
+    </script>
+    <!-- Wow.js -->
+    <script src="https://www.srinagardestination.com/theme/assets/js/wow.min.js">
+    </script>
+    <!-- Main Js File -->
+    <script src="https://www.srinagardestination.com/theme/assets/js/main.js">
+    </script>
+  </body>
 </html>
-
