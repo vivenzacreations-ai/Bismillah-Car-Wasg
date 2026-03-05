@@ -48,7 +48,6 @@
     <style>
         /* Light/Dark Theme CSS Variables */
         :root {
-            /* Deep Black & Rich Red (Default Dark) */
             --bg-dark: #030303;
             --bg-surface: #0a0a0a;
             --bg-card: #121212;
@@ -60,7 +59,6 @@
         }
 
         .light-theme {
-            /* Cream White & Reddish-Orange (Light Mode) */
             --bg-dark: #fcfbfa;
             --bg-surface: #f4f1eb;
             --bg-card: #ffffff;
@@ -108,7 +106,10 @@
         ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }
 
-        /* Swiper Overrides */
+        /* Swiper Linear Transition for Marquee effect */
+        .swiper-marquee .swiper-wrapper {
+            transition-timing-function: linear !important;
+        }
         .swiper-pagination-bullet { background: #fff; opacity: 0.4; }
         .swiper-pagination-bullet-active { background: var(--color-primary); opacity: 1; }
         
@@ -156,15 +157,12 @@
         .btn-modern:hover { color: #fff; }
         .btn-modern:hover::before { transform: scaleX(1); }
 
-        /* General Fill Button */
         .btn-fill {
             background: var(--color-primary);
             color: #ffffff;
             transition: background 0.3s ease;
         }
-        .btn-fill:hover {
-            background: var(--color-primary-hover);
-        }
+        .btn-fill:hover { background: var(--color-primary-hover); }
 
         /* Mobile Menu */
         #mobile-menu {
@@ -173,14 +171,14 @@
 
         /* Glass Form */
         .glass-form {
-            background: rgba(18, 18, 18, 0.5);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(18, 18, 18, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
         .light-theme .glass-form {
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         /* Accordion */
@@ -188,6 +186,20 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.4s ease;
+        }
+        
+        /* Sticky Glass Bottom Bar */
+        .glass-bottom-bar {
+            background: rgba(10, 10, 10, 0.2);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .light-theme .glass-bottom-bar {
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
     </style>
 </head>
@@ -201,11 +213,11 @@
     </div>
 
     <!-- Sticky Navbar -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-5 px-6 lg:px-12 border-b border-transparent">
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 px-5 md:px-10 border-b border-transparent">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <a href="#" class="flex flex-col z-50 relative">
-                <span class="font-serif text-xl md:text-2xl tracking-[0.2em] text-light uppercase">Srinagar</span>
-                <span class="font-sans text-[0.55rem] text-primary tracking-[0.3em] uppercase">Destinations</span>
+                <span class="font-serif text-xl md:text-2xl tracking-[0.2em] text-light uppercase leading-none">Srinagar</span>
+                <span class="font-sans text-[0.55rem] text-primary tracking-[0.3em] uppercase mt-1">Destinations</span>
             </a>
             
             <!-- Desktop Menu -->
@@ -216,14 +228,13 @@
                 <a href="#packages" class="text-xs uppercase tracking-widest text-light hover:text-primary transition">Packages</a>
                 <a href="#faq" class="text-xs uppercase tracking-widest text-light hover:text-primary transition">FAQ</a>
                 
-                <!-- Theme Switcher -->
                 <button onclick="toggleTheme()" class="text-light hover:text-primary transition ml-4 focus:outline-none" title="Toggle Theme">
                     <i id="theme-icon-desktop" class="fa-solid fa-moon text-lg"></i>
                 </button>
             </div>
 
             <!-- Mobile Controls -->
-            <div class="flex items-center gap-6 lg:hidden z-50 relative">
+            <div class="flex items-center gap-5 lg:hidden z-50 relative">
                 <button onclick="toggleTheme()" class="text-light hover:text-primary transition focus:outline-none">
                     <i id="theme-icon-mobile" class="fa-solid fa-moon text-xl"></i>
                 </button>
@@ -245,54 +256,55 @@
     </div>
 
     <!-- Hero Section -->
-    <header id="home" class="relative h-screen w-full">
-        <div class="swiper heroSwiper h-full w-full">
+    <header id="home" class="relative w-full">
+        <!-- Hero Slider -->
+        <div class="swiper heroSwiper h-[85vh] md:h-[95vh] w-full">
             <div class="swiper-wrapper">
-                <!-- Slide 1 -->
+                <!-- Slide 1 (Houseboat) -->
                 <div class="swiper-slide relative">
-                    <img src="https://images.unsplash.com/photo-1595815771614-ade9d652a65d?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-80" alt="Kashmir Dal Lake">
+                    <img src="https://images.unsplash.com/photo-1577500588651-5603d971f338?q=80&w=1278&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-80" alt="Kashmir Houseboat">
                     <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/40 to-transparent transition-colors duration-500"></div>
                     <div class="absolute inset-0 flex flex-col justify-center items-center text-center px-4">
                         <span class="text-primary text-xs tracking-[0.3em] uppercase mb-4" data-aos="fade-up">Your Adventure Awaits</span>
-                        <h1 class="font-serif text-4xl md:text-6xl lg:text-7xl text-white mb-6 leading-tight max-w-4xl drop-shadow-lg" data-aos="fade-up" data-aos-delay="100">Discover Kashmir:<br>A Journey to Paradise</h1>
+                        <h1 class="font-serif text-3xl md:text-5xl lg:text-7xl text-white mb-6 leading-tight max-w-4xl drop-shadow-lg" data-aos="fade-up" data-aos-delay="100">Discover Kashmir:<br>A Journey to Paradise</h1>
                         <a href="https://wa.me/918899734759?text=Can%20you%20tell%20me%20more%20about%20the%20Kashmir%20Journey?" target="_blank" class="btn-modern !text-white !border-white hover:!border-primary" data-aos="fade-up" data-aos-delay="200">Read More</a>
                     </div>
                 </div>
-                <!-- Slide 2 -->
+                <!-- Slide 2 (Gulmarg) -->
                 <div class="swiper-slide relative">
-                    <img src="https://images.unsplash.com/photo-1605641269382-74d3da9f4640?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-80" alt="Ladakh Mountains">
+                    <img src="https://images.unsplash.com/photo-1651509094074-e8acaeb84d8f?q=80&w=870&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-80" alt="Gulmarg Peaks">
                     <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/40 to-transparent transition-colors duration-500"></div>
                     <div class="absolute inset-0 flex flex-col justify-center items-center text-center px-4">
                         <span class="text-primary text-xs tracking-[0.3em] uppercase mb-4">Adventure of a Lifetime</span>
-                        <h1 class="font-serif text-4xl md:text-6xl lg:text-7xl text-white mb-6 leading-tight max-w-4xl drop-shadow-lg">Discover Ladakh:<br>The Land of High Passes</h1>
-                        <a href="https://wa.me/918899734759?text=I'm%20interested%20in%20the%20Ladakh%20Adventure.%20Can%20you%20share%20details?" target="_blank" class="btn-modern !text-white !border-white hover:!border-primary">Read More</a>
+                        <h1 class="font-serif text-3xl md:text-5xl lg:text-7xl text-white mb-6 leading-tight max-w-4xl drop-shadow-lg">Discover Gulmarg:<br>The Land of Snow</h1>
+                        <a href="https://wa.me/918899734759?text=I'm%20interested%20in%20the%20Gulmarg%20Adventure.%20Can%20you%20share%20details?" target="_blank" class="btn-modern !text-white !border-white hover:!border-primary">Read More</a>
                     </div>
                 </div>
-                <!-- Slide 3 -->
+                <!-- Slide 3 (Sunmarg) -->
                 <div class="swiper-slide relative">
-                    <img src="https://images.unsplash.com/photo-1570168007204-dfb528c6958f?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-80" alt="Himalayan Temple">
+                    <img src="https://images.unsplash.com/photo-1598091383021-15ddea10925d?q=80&w=870&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-80" alt="Sunmarg">
                     <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/40 to-transparent transition-colors duration-500"></div>
                     <div class="absolute inset-0 flex flex-col justify-center items-center text-center px-4">
-                        <span class="text-primary text-xs tracking-[0.3em] uppercase mb-4">A Journey of Faith</span>
-                        <h1 class="font-serif text-4xl md:text-6xl lg:text-7xl text-white mb-6 leading-tight max-w-4xl drop-shadow-lg">Experience Divinity at<br>Vaishno Devi Temple</h1>
-                        <a href="https://wa.me/918899734759?text=I%20want%20to%20know%20more%20about%20the%20Vaishno%20Devi%20tour." target="_blank" class="btn-modern !text-white !border-white hover:!border-primary">Read More</a>
+                        <span class="text-primary text-xs tracking-[0.3em] uppercase mb-4">A Journey of Peace</span>
+                        <h1 class="font-serif text-3xl md:text-5xl lg:text-7xl text-white mb-6 leading-tight max-w-4xl drop-shadow-lg">Experience the Serenity<br>of Sonmarg</h1>
+                        <a href="https://wa.me/918899734759?text=I%20want%20to%20know%20more%20about%20the%20Sonmarg%20tour." target="_blank" class="btn-modern !text-white !border-white hover:!border-primary">Read More</a>
                     </div>
                 </div>
             </div>
-            <div class="swiper-pagination mb-24"></div>
+            <div class="swiper-pagination mb-10 md:mb-20"></div>
         </div>
 
-        <!-- Glassmorphism Search Form -->
-        <div class="absolute bottom-0 left-0 w-full z-20 transform translate-y-1/2 px-4">
-            <div class="max-w-5xl mx-auto glass-form rounded-xl p-5 md:p-8 shadow-2xl">
-                <form class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+        <!-- Relative Placed Glassmorphism Search Form (Mobile & Desktop Friendly) -->
+        <div class="relative z-20 -mt-20 md:-mt-24 px-4 max-w-5xl mx-auto">
+            <div class="glass-form rounded-xl p-5 md:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                <form class="grid grid-cols-1 md:grid-cols-4 gap-5 items-end">
                     <div>
                         <label class="block text-[0.65rem] text-light uppercase tracking-widest mb-2 font-medium"><i class="fa-solid fa-compass text-primary mr-1"></i> Destination</label>
-                        <input type="text" id="search-dest" placeholder="Where To?" class="w-full bg-transparent border-b border-borderline text-light text-sm py-2 focus:outline-none focus:border-primary transition placeholder-gray-500">
+                        <input type="text" id="search-dest" placeholder="Where To?" class="w-full bg-transparent border-b border-white/20 text-light text-sm py-2 focus:outline-none focus:border-primary transition placeholder-gray-400">
                     </div>
                     <div>
                         <label class="block text-[0.65rem] text-light uppercase tracking-widest mb-2 font-medium"><i class="fa-solid fa-calendar text-primary mr-1"></i> Month</label>
-                        <select id="search-month" class="w-full bg-transparent border-b border-borderline text-light text-sm py-2 focus:outline-none focus:border-primary transition appearance-none cursor-pointer">
+                        <select id="search-month" class="w-full bg-transparent border-b border-white/20 text-light text-sm py-2 focus:outline-none focus:border-primary transition appearance-none cursor-pointer">
                             <option value="" class="bg-dark text-light">Select Month</option>
                             <option value="jan" class="bg-dark text-light">January</option>
                             <option value="feb" class="bg-dark text-light">February</option>
@@ -302,7 +314,7 @@
                     </div>
                     <div>
                         <label class="block text-[0.65rem] text-light uppercase tracking-widest mb-2 font-medium"><i class="fa-solid fa-thumbtack text-primary mr-1"></i> Type</label>
-                        <select id="search-type" class="w-full bg-transparent border-b border-borderline text-light text-sm py-2 focus:outline-none focus:border-primary transition appearance-none cursor-pointer">
+                        <select id="search-type" class="w-full bg-transparent border-b border-white/20 text-light text-sm py-2 focus:outline-none focus:border-primary transition appearance-none cursor-pointer">
                             <option value="" class="bg-dark text-light">Select Type</option>
                             <option value="adv" class="bg-dark text-light">Adventure</option>
                             <option value="dom" class="bg-dark text-light">Domestic</option>
@@ -310,7 +322,7 @@
                             <option value="sport" class="bg-dark text-light">Sporting</option>
                         </select>
                     </div>
-                    <button type="button" onclick="submitInquiry()" class="btn-fill text-sm uppercase tracking-widest py-3 rounded transition w-full h-full flex items-center justify-center font-medium shadow-lg">
+                    <button type="button" onclick="submitInquiry()" class="btn-fill text-xs md:text-sm uppercase tracking-widest py-3 rounded transition w-full h-full flex items-center justify-center font-medium shadow-lg mt-2 md:mt-0">
                         Send an inquiry
                     </button>
                 </form>
@@ -318,32 +330,32 @@
         </div>
     </header>
 
-    <!-- Offbeat Destinations -->
-    <section id="destinations" class="pt-32 pb-16 bg-surface overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6">
+    <!-- Offbeat Destinations (Smooth Marquee Swipe) -->
+    <section id="destinations" class="pt-24 md:pt-32 pb-16 bg-surface overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 md:px-6">
             <div class="text-center mb-10" data-aos="fade-up">
                 <span class="text-primary text-xs tracking-widest uppercase block mb-2 font-semibold">Off Beat Destinations</span>
-                <h2 class="font-serif text-3xl md:text-4xl text-light">Journeys to Places You've Never Dreamed Of</h2>
+                <h2 class="font-serif text-2xl md:text-4xl text-light">Journeys to Places You've Never Dreamed Of</h2>
             </div>
             
-            <div class="swiper offbeatSwiper pb-10" data-aos="fade-up" data-aos-delay="100">
+            <div class="swiper offbeatSwiper swiper-marquee pb-10" data-aos="fade-up" data-aos-delay="100">
                 <div class="swiper-wrapper">
                     <script>
                         const dests = [
-                            {name: 'Bungus Valley', img: 'https://images.unsplash.com/photo-1626014903700-478e244458cc?w=600&q=80'},
-                            {name: 'Doodhpatri', img: 'https://images.unsplash.com/photo-1598094776106-9df7d9b9868e?w=600&q=80'},
-                            {name: 'Gulmarg', img: 'https://images.unsplash.com/photo-1583096058694-5509e530932d?w=600&q=80'},
-                            {name: 'Gurez', img: 'https://images.unsplash.com/photo-1615555419998-9bb32d96c8eb?w=600&q=80'},
-                            {name: 'Kargil', img: 'https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?w=600&q=80'},
+                            {name: 'Gurez', img: 'https://images.unsplash.com/photo-1706982819560-2523c971299d?q=80&w=869&auto=format&fit=crop'},
+                            {name: 'Pahalgam', img: 'https://images.unsplash.com/photo-1668173443752-bdec2fbb3c79?w=800&auto=format&fit=crop'},
+                            {name: 'Dal Lake', img: 'https://images.unsplash.com/photo-1577500588651-5603d971f338?w=800&auto=format&fit=crop'},
+                            {name: 'Sunmarg', img: 'https://images.unsplash.com/photo-1598091383021-15ddea10925d?w=800&auto=format&fit=crop'},
+                            {name: 'Gulmarg', img: 'https://images.unsplash.com/photo-1651509094074-e8acaeb84d8f?w=800&auto=format&fit=crop'},
                             {name: 'Leh', img: 'https://images.unsplash.com/photo-1627885748809-b68a86a67bd4?w=600&q=80'}
                         ];
                         dests.forEach(d => {
                             document.write(`
                                 <div class="swiper-slide group cursor-pointer text-center" onclick="window.open('https://wa.me/918899734759?text=Tell%20me%20about%20the%20${d.name}%20trip', '_blank')">
-                                    <div class="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full overflow-hidden border-[3px] border-transparent group-hover:border-primary transition-all duration-300 mb-4 shadow-lg">
+                                    <div class="w-28 h-28 md:w-40 md:h-40 mx-auto rounded-full overflow-hidden border-[3px] border-transparent group-hover:border-primary transition-all duration-300 mb-4 shadow-lg">
                                         <img src="${d.img}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="${d.name}">
                                     </div>
-                                    <h3 class="text-sm font-semibold tracking-wide text-light group-hover:text-primary transition-colors">${d.name}</h3>
+                                    <h3 class="text-xs md:text-sm font-semibold tracking-wide text-light group-hover:text-primary transition-colors">${d.name}</h3>
                                 </div>
                             `);
                         });
@@ -353,38 +365,31 @@
         </div>
     </section>
 
-    <!-- About Sections -->
-    <section id="about" class="py-16 bg-dark">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            
-            <div data-aos="fade-right">
-                <span class="text-primary text-[0.65rem] tracking-[0.2em] uppercase mb-2 block font-semibold">About Us</span>
-                <h2 class="font-serif text-3xl md:text-4xl text-light mb-4">We Are The Best For Your Travel</h2>
-                <p class="text-muted text-sm leading-relaxed mb-6 font-light">With over 15 years of experience in curating memorable travel experiences, our team is passionate about showcasing the best of Kashmir. We ensure personalized service, catering to each traveler’s unique interests. Deep local knowledge and commitment to providing safe journeys.</p>
+    <!-- About Sections (Text Only as requested) -->
+    <section id="about" class="py-12 md:py-20 bg-dark">
+        <div class="max-w-4xl mx-auto px-4 md:px-6 text-center">
+            <span class="text-primary text-[0.65rem] tracking-[0.2em] uppercase mb-4 block font-semibold" data-aos="fade-up">About Us</span>
+            <h2 class="font-serif text-3xl md:text-5xl text-light mb-8 leading-tight" data-aos="fade-up" data-aos-delay="100">We Are The Best Curators<br>For Your Travel</h2>
+            <div class="w-16 h-1 bg-primary mx-auto mb-8" data-aos="fade-up" data-aos-delay="150"></div>
+            <p class="text-muted text-sm md:text-base leading-relaxed mb-10 font-light max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                With over 15 years of experience in curating memorable travel experiences, our team is passionate about showcasing the best of Kashmir. We ensure personalized service, catering to each traveler’s unique interests. Deep local knowledge and commitment to providing safe journeys.
+            </p>
+            <div data-aos="fade-up" data-aos-delay="300">
                 <a href="https://wa.me/918899734759?text=I%20want%20to%20plan%20a%20custom%20trip%20with%20your%20team." target="_blank" class="btn-modern">Plan With Us</a>
             </div>
-            
-            <div class="relative h-[20rem] md:h-[28rem] w-full" data-aos="fade-left">
-                <img src="https://images.unsplash.com/photo-1544168190-79c17527004f?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover rounded-sm border border-borderline shadow-2xl" alt="Kashmir Landscape">
-                <div class="absolute -bottom-6 -left-6 bg-card border border-borderline p-5 shadow-2xl rounded-sm">
-                    <p class="text-primary font-serif text-4xl mb-1">15+</p>
-                    <p class="text-[0.65rem] text-muted uppercase tracking-widest font-semibold">Years Experience</p>
-                </div>
-            </div>
-
         </div>
     </section>
 
     <!-- Discover Beauty Block -->
-    <section class="py-16 bg-surface border-y border-borderline">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <div class="order-2 md:order-1 relative h-[20rem] md:h-[28rem] w-full" data-aos="fade-right">
-                <img src="https://images.unsplash.com/photo-1610640498118-20dcbdd955ec?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover rounded-sm border border-borderline shadow-2xl" alt="Kashmir Snowy Peaks">
+    <section class="py-12 md:py-20 bg-surface border-y border-borderline">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+            <div class="order-2 md:order-1 relative h-[18rem] md:h-[28rem] w-full" data-aos="fade-right">
+                <img src="https://images.unsplash.com/photo-1706982819560-2523c971299d?q=80&w=869&auto=format&fit=crop" class="w-full h-full object-cover rounded-sm border border-borderline shadow-2xl" alt="Kashmir Gurez Peaks">
             </div>
-            <div class="order-1 md:order-2" data-aos="fade-left">
+            <div class="order-1 md:order-2 text-center md:text-left" data-aos="fade-left">
                 <span class="text-primary text-[0.65rem] tracking-[0.2em] uppercase mb-2 block font-semibold">Travel Essentials Tips</span>
                 <h2 class="font-serif text-3xl md:text-4xl text-light mb-4">Discover the Beauty of Kashmir with Us</h2>
-                <h3 class="text-lg font-medium text-light mb-3">A Time to Travel And Find Breathtaking Landscapes For Relax</h3>
+                <h3 class="text-base md:text-lg font-medium text-light mb-3">A Time to Travel And Find Breathtaking Landscapes</h3>
                 <p class="text-muted text-sm leading-relaxed mb-6 font-light">Nestled in the northernmost region of India, Kashmir is often referred to as "Paradise on Earth." With its stunning landscapes, tranquil lakes, and snow-capped mountains, it offers an unparalleled experience.</p>
                 <a href="https://wa.me/918899734759?text=Can%20you%20guide%20me%20on%20the%20best%20landscapes%20to%20visit?" target="_blank" class="btn-modern">Discover More</a>
             </div>
@@ -393,273 +398,174 @@
 
     <!-- Stats -->
     <section class="py-16 bg-dark border-b border-borderline">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div class="max-w-7xl mx-auto px-4 md:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-center text-center md:text-left">
                 <div data-aos="fade-up">
                     <span class="text-primary text-[0.65rem] tracking-[0.2em] uppercase mb-2 block font-semibold">Are You Ready To Travel</span>
                     <h2 class="font-serif text-3xl md:text-4xl text-light mb-3">Choose Our Tour Types and Enjoy Now</h2>
                     <p class="text-muted text-sm font-light">Explore our diverse range of packages and let us inspire your next adventure with expert guidance.</p>
                 </div>
-                <div class="flex justify-between text-center" data-aos="fade-up" data-aos-delay="100">
+                <div class="flex justify-between items-center text-center gap-4" data-aos="fade-up" data-aos-delay="100">
                     <div>
-                        <h4 class="font-serif text-3xl md:text-4xl text-light mb-1">5k+</h4>
-                        <p class="text-[0.65rem] text-muted uppercase tracking-widest font-semibold">Happy Travelers</p>
+                        <h4 class="font-serif text-2xl md:text-4xl text-light mb-1">5k+</h4>
+                        <p class="text-[0.55rem] md:text-[0.65rem] text-muted uppercase tracking-widest font-semibold">Happy Travelers</p>
                     </div>
                     <div>
-                        <h4 class="font-serif text-3xl md:text-4xl text-light mb-1">97.9%</h4>
-                        <p class="text-[0.65rem] text-muted uppercase tracking-widest font-semibold">Satisfaction Rate</p>
+                        <h4 class="font-serif text-2xl md:text-4xl text-light mb-1">97.9%</h4>
+                        <p class="text-[0.55rem] md:text-[0.65rem] text-muted uppercase tracking-widest font-semibold">Satisfaction</p>
                     </div>
                     <div>
-                        <h4 class="font-serif text-3xl md:text-4xl text-light mb-1">24/7</h4>
-                        <p class="text-[0.65rem] text-muted uppercase tracking-widest font-semibold">Help Support</p>
+                        <h4 class="font-serif text-2xl md:text-4xl text-light mb-1">24/7</h4>
+                        <p class="text-[0.55rem] md:text-[0.65rem] text-muted uppercase tracking-widest font-semibold">Help Support</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Why Travel & Why Choose Us -->
-    <section class="py-16 bg-surface">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16">
-            
-            <!-- Why Travel -->
-            <div>
-                <span class="text-primary text-[0.65rem] tracking-[0.2em] uppercase mb-2 block font-semibold" data-aos="fade-up">Awesome Tours</span>
-                <h2 class="font-serif text-3xl md:text-4xl text-light mb-8" data-aos="fade-up">Why Travel to Kashmir?</h2>
-                <div class="space-y-4">
-                    <div class="modern-card p-6 rounded-sm flex items-start gap-5 shadow-sm" data-aos="fade-up" data-aos-delay="100">
-                        <i class="fa-solid fa-image text-primary text-2xl mt-1"></i>
-                        <div>
-                            <h4 class="text-light text-sm font-bold tracking-wide mb-1 uppercase">Breathtaking Scenery</h4>
-                            <p class="text-muted text-xs font-light leading-relaxed">From Dal Lake to the peaks of Gulmarg, natural beauty is awe-inspiring.</p>
-                        </div>
-                    </div>
-                    <div class="modern-card p-6 rounded-sm flex items-start gap-5 shadow-sm" data-aos="fade-up" data-aos-delay="200">
-                        <i class="fa-solid fa-person-hiking text-primary text-2xl mt-1"></i>
-                        <div>
-                            <h4 class="text-light text-sm font-bold tracking-wide mb-1 uppercase">Adventure Awaits</h4>
-                            <p class="text-muted text-xs font-light leading-relaxed">Skiing, trekking, and luxurious houseboat stays for the thrill-seeker.</p>
-                        </div>
-                    </div>
-                    <div class="modern-card p-6 rounded-sm flex items-start gap-5 shadow-sm" data-aos="fade-up" data-aos-delay="300">
-                        <i class="fa-solid fa-masks-theater text-primary text-2xl mt-1"></i>
-                        <div>
-                            <h4 class="text-light text-sm font-bold tracking-wide mb-1 uppercase">Rich Culture</h4>
-                            <p class="text-muted text-xs font-light leading-relaxed">Experience warm hospitality, vibrant markets, and local cuisine.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Why Choose Us -->
-            <div>
-                <span class="text-primary text-[0.65rem] tracking-[0.2em] uppercase mb-2 block font-semibold" data-aos="fade-up">We are Srinagar Destinations</span>
-                <h2 class="font-serif text-3xl md:text-4xl text-light mb-8" data-aos="fade-up">Why Choose Us?</h2>
-                <div class="space-y-4">
-                    <div class="modern-card p-6 rounded-sm flex items-start gap-5 shadow-sm" data-aos="fade-up" data-aos-delay="100">
-                        <i class="fa-solid fa-wand-magic-sparkles text-primary text-2xl mt-1"></i>
-                        <div>
-                            <h4 class="text-light text-sm font-bold tracking-wide mb-1 uppercase">Tailored Experiences</h4>
-                            <p class="text-muted text-xs font-light leading-relaxed">Designed to cater to specific needs, from romance to adventure.</p>
-                        </div>
-                    </div>
-                    <div class="modern-card p-6 rounded-sm flex items-start gap-5 shadow-sm" data-aos="fade-up" data-aos-delay="200">
-                        <i class="fa-solid fa-shield-halved text-primary text-2xl mt-1"></i>
-                        <div>
-                            <h4 class="text-light text-sm font-bold tracking-wide mb-1 uppercase">Safety First</h4>
-                            <p class="text-muted text-xs font-light leading-relaxed">All trips conducted with the highest safety standards in mind.</p>
-                        </div>
-                    </div>
-                    <div class="modern-card p-6 rounded-sm flex items-start gap-5 shadow-sm" data-aos="fade-up" data-aos-delay="300">
-                        <i class="fa-solid fa-headset text-primary text-2xl mt-1"></i>
-                        <div>
-                            <h4 class="text-light text-sm font-bold tracking-wide mb-1 uppercase">24/7 Support</h4>
-                            <p class="text-muted text-xs font-light leading-relaxed">Here for you at every step, from planning to returning home.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Tour Packages -->
-    <section id="packages" class="py-16 bg-dark border-t border-borderline">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-12" data-aos="fade-up">
+    <!-- Tour Packages (Perfect Responsive Grid) -->
+    <section id="packages" class="py-12 md:py-20 bg-dark border-t border-borderline">
+        <div class="max-w-7xl mx-auto px-4 md:px-6">
+            <div class="text-center mb-10 md:mb-12" data-aos="fade-up">
                 <span class="text-primary text-[0.65rem] tracking-[0.2em] uppercase mb-2 block font-semibold">Awesome Tours</span>
                 <h2 class="font-serif text-3xl md:text-4xl text-light">Our Kashmir Packages</h2>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
                 <!-- Pkg 1 -->
                 <div class="modern-card rounded-sm overflow-hidden flex flex-col group shadow-lg" data-aos="fade-up" data-aos-delay="100">
-                    <div class="h-56 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1566837497312-7c701db55151?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Srinagar Delight">
+                    <div class="h-48 md:h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1577500588651-5603d971f338?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Srinagar Delight">
                     </div>
-                    <div class="p-6 flex-1 flex flex-col">
-                        <h4 class="text-light font-serif text-xl mb-2 group-hover:text-primary transition">Srinagar Delight</h4>
+                    <div class="p-5 md:p-6 flex-1 flex flex-col">
+                        <h4 class="text-light font-serif text-lg md:text-xl mb-2 group-hover:text-primary transition">Srinagar Delight</h4>
                         <p class="text-muted text-xs font-light mb-5 flex-1 leading-relaxed">4-day package with luxurious houseboat stay, traditional shikara ride, and iconic Mughal gardens.</p>
                         <div class="flex justify-between text-[0.65rem] text-muted tracking-widest uppercase border-t border-borderline pt-4 mb-5">
                             <span class="font-semibold"><i class="fa-regular fa-clock text-primary mr-1"></i> 4 Days</span>
                             <span class="font-semibold"><i class="fa-regular fa-user text-primary mr-1"></i> 3 People</span>
                         </div>
-                        <button onclick="window.open('https://wa.me/918899734759?text=Can%20you%20tell%20me%20more%20about%20the%20Srinagar%20Delight%20Package?', '_blank')" class="text-xs font-semibold uppercase tracking-widest border border-primary text-center py-2.5 text-primary hover:bg-primary hover:text-white transition w-full rounded-sm">View Details</button>
+                        <button onclick="window.open('https://wa.me/918899734759?text=Can%20you%20tell%20me%20more%20about%20the%20Srinagar%20Delight%20Package?', '_blank')" class="text-[0.65rem] md:text-xs font-semibold uppercase tracking-widest border border-primary text-center py-2.5 text-primary hover:bg-primary hover:text-white transition w-full rounded-sm">View Details</button>
                     </div>
                 </div>
                 
                 <!-- Pkg 2 -->
                 <div class="modern-card rounded-sm overflow-hidden flex flex-col group shadow-lg" data-aos="fade-up" data-aos-delay="200">
-                    <div class="h-56 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1643187210196-85dd479b47e9?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Gulmarg">
+                    <div class="h-48 md:h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1651509094074-e8acaeb84d8f?q=80&w=870&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Gulmarg">
                     </div>
-                    <div class="p-6 flex-1 flex flex-col">
-                        <h4 class="text-light font-serif text-xl mb-2 group-hover:text-primary transition">Adventure in Gulmarg</h4>
+                    <div class="p-5 md:p-6 flex-1 flex flex-col">
+                        <h4 class="text-light font-serif text-lg md:text-xl mb-2 group-hover:text-primary transition">Adventure in Gulmarg</h4>
                         <p class="text-muted text-xs font-light mb-5 flex-1 leading-relaxed">5-day escape perfect for adventure lovers. Featuring premium skiing, gondola ride, and Alpather Lake.</p>
                         <div class="flex justify-between text-[0.65rem] text-muted tracking-widest uppercase border-t border-borderline pt-4 mb-5">
                             <span class="font-semibold"><i class="fa-regular fa-clock text-primary mr-1"></i> 5 Days</span>
                             <span class="font-semibold"><i class="fa-regular fa-user text-primary mr-1"></i> 3 People</span>
                         </div>
-                        <button onclick="window.open('https://wa.me/918899734759?text=I%20am%20interested%20in%20the%20Adventure%20in%20Gulmarg%20Package.', '_blank')" class="text-xs font-semibold uppercase tracking-widest border border-primary text-center py-2.5 text-primary hover:bg-primary hover:text-white transition w-full rounded-sm">View Details</button>
+                        <button onclick="window.open('https://wa.me/918899734759?text=I%20am%20interested%20in%20the%20Adventure%20in%20Gulmarg%20Package.', '_blank')" class="text-[0.65rem] md:text-xs font-semibold uppercase tracking-widest border border-primary text-center py-2.5 text-primary hover:bg-primary hover:text-white transition w-full rounded-sm">View Details</button>
                     </div>
                 </div>
 
                 <!-- Pkg 3 -->
                 <div class="modern-card rounded-sm overflow-hidden flex flex-col group shadow-lg" data-aos="fade-up" data-aos-delay="300">
-                    <div class="h-56 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1596400713589-32da05b1c977?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Pahalgam">
+                    <div class="h-48 md:h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1668173443752-bdec2fbb3c79?w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Pahalgam">
                     </div>
-                    <div class="p-6 flex-1 flex flex-col">
-                        <h4 class="text-light font-serif text-xl mb-2 group-hover:text-primary transition">Pahalgam & Beyond</h4>
+                    <div class="p-5 md:p-6 flex-1 flex flex-col">
+                        <h4 class="text-light font-serif text-lg md:text-xl mb-2 group-hover:text-primary transition">Pahalgam & Beyond</h4>
                         <p class="text-muted text-xs font-light mb-5 flex-1 leading-relaxed">6-day cinematic journey traversing through Pahalgam, Sonmarg, and the majestic Betaab Valley.</p>
                         <div class="flex justify-between text-[0.65rem] text-muted tracking-widest uppercase border-t border-borderline pt-4 mb-5">
                             <span class="font-semibold"><i class="fa-regular fa-clock text-primary mr-1"></i> 6 Days</span>
                             <span class="font-semibold"><i class="fa-regular fa-user text-primary mr-1"></i> 2 People</span>
                         </div>
-                        <button onclick="window.open('https://wa.me/918899734759?text=Can%20you%20tell%20me%20more%20about%20the%20Pahalgam%20Package?', '_blank')" class="text-xs font-semibold uppercase tracking-widest border border-primary text-center py-2.5 text-primary hover:bg-primary hover:text-white transition w-full rounded-sm">View Details</button>
+                        <button onclick="window.open('https://wa.me/918899734759?text=Can%20you%20tell%20me%20more%20about%20the%20Pahalgam%20Package?', '_blank')" class="text-[0.65rem] md:text-xs font-semibold uppercase tracking-widest border border-primary text-center py-2.5 text-primary hover:bg-primary hover:text-white transition w-full rounded-sm">View Details</button>
                     </div>
                 </div>
 
                 <!-- Pkg 4 -->
                 <div class="modern-card rounded-sm overflow-hidden flex flex-col group shadow-lg" data-aos="fade-up" data-aos-delay="400">
-                    <div class="h-56 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Luxury Resort">
+                    <div class="h-48 md:h-56 overflow-hidden">
+                        <img src="https://media.istockphoto.com/id/1389143488/photo/romantic-dinner-table-on-the-beach-at-sunset.webp?a=1&b=1&s=612x612&w=0&k=20&c=r1C0egaLJbw-OWHs4rRF5gDdMfRxbq1mJWhGyZBJX0w=" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Luxury Resort">
                     </div>
-                    <div class="p-6 flex-1 flex flex-col">
-                        <h4 class="text-light font-serif text-xl mb-2 group-hover:text-primary transition">Luxury Kashmir</h4>
+                    <div class="p-5 md:p-6 flex-1 flex flex-col">
+                        <h4 class="text-light font-serif text-lg md:text-xl mb-2 group-hover:text-primary transition">Luxury Kashmir</h4>
                         <p class="text-muted text-xs font-light mb-5 flex-1 leading-relaxed">7-day ultimate luxurious experience with 5-star premium hotels, guided tours, and exclusive dining.</p>
                         <div class="flex justify-between text-[0.65rem] text-muted tracking-widest uppercase border-t border-borderline pt-4 mb-5">
                             <span class="font-semibold"><i class="fa-regular fa-clock text-primary mr-1"></i> 7 Days</span>
                             <span class="font-semibold"><i class="fa-regular fa-user text-primary mr-1"></i> 3 People</span>
                         </div>
-                        <button onclick="window.open('https://wa.me/918899734759?text=I%20would%20love%20details%20on%20the%20Luxury%20Kashmir%20Package.', '_blank')" class="text-xs font-semibold uppercase tracking-widest border border-primary text-center py-2.5 text-primary hover:bg-primary hover:text-white transition w-full rounded-sm">View Details</button>
+                        <button onclick="window.open('https://wa.me/918899734759?text=I%20would%20love%20details%20on%20the%20Luxury%20Kashmir%20Package.', '_blank')" class="text-[0.65rem] md:text-xs font-semibold uppercase tracking-widest border border-primary text-center py-2.5 text-primary hover:bg-primary hover:text-white transition w-full rounded-sm">View Details</button>
                     </div>
                 </div>
             </div>
             
-            <div class="text-center mt-12">
+            <div class="text-center mt-10 md:mt-12">
                 <button onclick="window.open('https://wa.me/918899734759?text=Show%20me%20all%20your%20tour%20packages.', '_blank')" class="btn-modern shadow-lg">View All Packages</button>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="py-16 bg-surface overflow-hidden border-y border-borderline">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <span class="text-primary text-[0.65rem] tracking-[0.2em] uppercase mb-2 block font-semibold" data-aos="fade-up">Testimonials</span>
-            <h2 class="font-serif text-3xl md:text-4xl text-light mb-12" data-aos="fade-up">What Our Clients Say</h2>
-            
-            <div class="swiper testSwiper" data-aos="fade-up" data-aos-delay="100">
-                <div class="swiper-wrapper mb-12">
-                    <div class="swiper-slide modern-card p-10 rounded-sm shadow-xl">
-                        <i class="fa-solid fa-quote-left text-3xl text-primary/30 mb-5 block"></i>
-                        <p class="text-sm text-muted font-light leading-relaxed mb-8 italic">"Got my stay and travel sorted for a good price. Their houseboat serves very good food. Enjoyed my short stay there."</p>
-                        <h5 class="text-light font-bold text-sm tracking-wide uppercase">Harpreet Chawla</h5>
-                        <p class="text-[0.65rem] text-primary uppercase tracking-widest mt-1 font-semibold">Mumbai</p>
-                    </div>
-                    <div class="swiper-slide modern-card p-10 rounded-sm shadow-xl">
-                        <i class="fa-solid fa-quote-left text-3xl text-primary/30 mb-5 block"></i>
-                        <p class="text-sm text-muted font-light leading-relaxed mb-8 italic">"It's a very good experience. Every thing as per plan. Provided driver also a good guy. My children also enjoy a lot."</p>
-                        <h5 class="text-light font-bold text-sm tracking-wide uppercase">Nishit Pandya</h5>
-                        <p class="text-[0.65rem] text-primary uppercase tracking-widest mt-1 font-semibold">Bangalore</p>
-                    </div>
-                    <div class="swiper-slide modern-card p-10 rounded-sm shadow-xl">
-                        <i class="fa-solid fa-quote-left text-3xl text-primary/30 mb-5 block"></i>
-                        <p class="text-sm text-muted font-light leading-relaxed mb-8 italic">"The Kashmir tour exceeded all our expectations. Every detail was well taken care of, and the experience was unforgettable."</p>
-                        <h5 class="text-light font-bold text-sm tracking-wide uppercase">John & Sarah</h5>
-                        <p class="text-[0.65rem] text-primary uppercase tracking-widest mt-1 font-semibold">UK</p>
-                    </div>
-                </div>
-                <div class="swiper-pagination"></div>
-            </div>
-        </div>
-    </section>
-
     <!-- FAQ Section -->
-    <section id="faq" class="py-16 bg-dark">
-        <div class="max-w-3xl mx-auto px-6">
-            <div class="text-center mb-10" data-aos="fade-up">
+    <section id="faq" class="py-12 md:py-20 bg-surface border-t border-borderline">
+        <div class="max-w-3xl mx-auto px-4 md:px-6">
+            <div class="text-center mb-8 md:mb-10" data-aos="fade-up">
                 <span class="text-primary text-[0.65rem] tracking-[0.2em] uppercase mb-2 block font-semibold">Information</span>
                 <h2 class="font-serif text-3xl md:text-4xl text-light">Frequently Asked Questions</h2>
             </div>
             
-            <div class="space-y-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="space-y-3 md:space-y-4" data-aos="fade-up" data-aos-delay="100">
                 <div class="modern-card border border-borderline rounded-sm shadow-sm">
-                    <button class="faq-btn w-full text-left px-6 py-5 flex justify-between items-center focus:outline-none text-light">
-                        <span class="text-sm font-semibold tracking-wide">When is the best time to visit Kashmir?</span>
+                    <button class="faq-btn w-full text-left px-4 md:px-6 py-4 md:py-5 flex justify-between items-center focus:outline-none text-light">
+                        <span class="text-xs md:text-sm font-semibold tracking-wide">When is the best time to visit Kashmir?</span>
                         <i class="fa-solid fa-plus text-primary transition-transform"></i>
                     </button>
-                    <div class="faq-content px-6">
-                        <p class="text-xs text-muted font-light pb-5 leading-relaxed">The best time to visit Kashmir is from March to October when the weather is pleasant. For snow lovers and skiing, December to February is ideal.</p>
+                    <div class="faq-content px-4 md:px-6">
+                        <p class="text-xs text-muted font-light pb-4 md:pb-5 leading-relaxed">The best time to visit Kashmir is from March to October when the weather is pleasant. For snow lovers and skiing, December to February is ideal.</p>
                     </div>
                 </div>
                 <div class="modern-card border border-borderline rounded-sm shadow-sm">
-                    <button class="faq-btn w-full text-left px-6 py-5 flex justify-between items-center focus:outline-none text-light">
-                        <span class="text-sm font-semibold tracking-wide">Are your tour packages customizable?</span>
+                    <button class="faq-btn w-full text-left px-4 md:px-6 py-4 md:py-5 flex justify-between items-center focus:outline-none text-light">
+                        <span class="text-xs md:text-sm font-semibold tracking-wide">Are your tour packages customizable?</span>
                         <i class="fa-solid fa-plus text-primary transition-transform"></i>
                     </button>
-                    <div class="faq-content px-6">
-                        <p class="text-xs text-muted font-light pb-5 leading-relaxed">Yes, absolutely! All our itineraries can be fully customized according to your preferences, duration, and budget.</p>
+                    <div class="faq-content px-4 md:px-6">
+                        <p class="text-xs text-muted font-light pb-4 md:pb-5 leading-relaxed">Yes, absolutely! All our itineraries can be fully customized according to your preferences, duration, and budget.</p>
                     </div>
                 </div>
                 <div class="modern-card border border-borderline rounded-sm shadow-sm">
-                    <button class="faq-btn w-full text-left px-6 py-5 flex justify-between items-center focus:outline-none text-light">
-                        <span class="text-sm font-semibold tracking-wide">Is it safe to travel to Kashmir?</span>
+                    <button class="faq-btn w-full text-left px-4 md:px-6 py-4 md:py-5 flex justify-between items-center focus:outline-none text-light">
+                        <span class="text-xs md:text-sm font-semibold tracking-wide">Is it safe to travel to Kashmir?</span>
                         <i class="fa-solid fa-plus text-primary transition-transform"></i>
                     </button>
-                    <div class="faq-content px-6">
-                        <p class="text-xs text-muted font-light pb-5 leading-relaxed">Kashmir is very safe for tourists. We prioritize your safety and ensure our guides and drivers are experienced locals who know the terrain perfectly.</p>
+                    <div class="faq-content px-4 md:px-6">
+                        <p class="text-xs text-muted font-light pb-4 md:pb-5 leading-relaxed">Kashmir is very safe for tourists. We prioritize your safety and ensure our guides and drivers are experienced locals who know the terrain perfectly.</p>
                     </div>
                 </div>
             </div>
             
-            <div class="text-center mt-10">
-                <p class="text-xs text-muted mb-3">Still have questions?</p>
-                <button onclick="window.open('https://wa.me/918899734759?text=I%20have%20a%20question%20regarding%20your%20tours.', '_blank')" class="text-xs font-semibold uppercase tracking-widest text-primary hover:text-primaryHover transition"><i class="fa-brands fa-whatsapp mr-1"></i> Chat With Us</button>
+            <div class="text-center mt-8 md:mt-10">
+                <p class="text-xs text-muted mb-2">Still have questions?</p>
+                <button onclick="window.open('https://wa.me/918899734759?text=I%20have%20a%20question%20regarding%20your%20tours.', '_blank')" class="text-[0.65rem] md:text-xs font-semibold uppercase tracking-widest text-primary hover:text-primaryHover transition"><i class="fa-brands fa-whatsapp mr-1"></i> Chat With Us</button>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-surface pt-16 pb-24 lg:pb-12 border-t border-borderline">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+    <footer class="bg-dark pt-12 md:pt-16 pb-24 lg:pb-12 border-t border-borderline">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12 mb-10">
             
-            <!-- Brand -->
             <div>
-                <a href="#" class="flex flex-col mb-5">
-                    <span class="font-serif text-xl md:text-2xl tracking-[0.2em] text-light uppercase">Srinagar</span>
-                    <span class="font-sans text-[0.55rem] text-primary tracking-[0.3em] uppercase">Destinations</span>
+                <a href="#" class="flex flex-col mb-4 md:mb-5">
+                    <span class="font-serif text-xl md:text-2xl tracking-[0.2em] text-light uppercase leading-none">Srinagar</span>
+                    <span class="font-sans text-[0.55rem] text-primary tracking-[0.3em] uppercase mt-1">Destinations</span>
                 </a>
-                <p class="text-muted text-xs font-light leading-relaxed mb-6">Curating the world's most elegant travel experiences in the heart of Kashmir and Ladakh.</p>
+                <p class="text-muted text-xs font-light leading-relaxed mb-5 md:mb-6">Curating the world's most elegant travel experiences in the heart of Kashmir and Ladakh.</p>
                 <div class="flex gap-4">
-                    <a href="#" class="w-10 h-10 rounded-full border border-borderline bg-card flex items-center justify-center text-muted hover:text-white hover:border-primary hover:bg-primary transition shadow-sm"><i class="fa-brands fa-instagram text-sm"></i></a>
-                    <a href="#" class="w-10 h-10 rounded-full border border-borderline bg-card flex items-center justify-center text-muted hover:text-white hover:border-primary hover:bg-primary transition shadow-sm"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+                    <a href="#" class="w-8 h-8 md:w-10 md:h-10 rounded-full border border-borderline bg-card flex items-center justify-center text-muted hover:text-white hover:border-primary hover:bg-primary transition shadow-sm"><i class="fa-brands fa-instagram text-sm"></i></a>
+                    <a href="#" class="w-8 h-8 md:w-10 md:h-10 rounded-full border border-borderline bg-card flex items-center justify-center text-muted hover:text-white hover:border-primary hover:bg-primary transition shadow-sm"><i class="fa-brands fa-facebook-f text-sm"></i></a>
                 </div>
             </div>
 
-            <!-- Links -->
             <div>
-                <h4 class="text-sm text-light font-bold tracking-widest uppercase mb-6">Useful Links</h4>
+                <h4 class="text-sm text-light font-bold tracking-widest uppercase mb-4 md:mb-6">Useful Links</h4>
                 <ul class="space-y-3 text-xs font-light text-muted">
                     <li><a href="#home" class="hover:text-primary transition">Home</a></li>
                     <li><a href="#about" class="hover:text-primary transition">About Us</a></li>
@@ -668,9 +574,8 @@
                 </ul>
             </div>
 
-            <!-- Tours -->
             <div>
-                <h4 class="text-sm text-light font-bold tracking-widest uppercase mb-6">Tour Packages</h4>
+                <h4 class="text-sm text-light font-bold tracking-widest uppercase mb-4 md:mb-6">Tour Packages</h4>
                 <ul class="space-y-3 text-xs font-light text-muted">
                     <li><button onclick="window.open('https://wa.me/918899734759?text=Details%20about%20Heavenly%20Kashmir%20package.', '_blank')" class="hover:text-primary transition">Heavenly Kashmir</button></li>
                     <li><button onclick="window.open('https://wa.me/918899734759?text=Details%20about%20Paradise%20on%20Kashmir%20package.', '_blank')" class="hover:text-primary transition">Paradise on Kashmir</button></li>
@@ -679,10 +584,9 @@
                 </ul>
             </div>
 
-            <!-- Reach Us -->
             <div>
-                <h4 class="text-sm text-light font-bold tracking-widest uppercase mb-6">Reach Us</h4>
-                <ul class="space-y-4 text-xs font-light text-muted">
+                <h4 class="text-sm text-light font-bold tracking-widest uppercase mb-4 md:mb-6">Reach Us</h4>
+                <ul class="space-y-3 text-xs font-light text-muted">
                     <li class="flex items-center gap-3"><i class="fa-regular fa-envelope text-primary text-sm"></i> srinagardestination@gmail.com</li>
                     <li class="flex items-center gap-3"><i class="fa-solid fa-phone text-primary text-sm"></i> +91 9906 008 080</li>
                     <li class="flex items-center gap-3"><i class="fa-solid fa-phone text-primary text-sm"></i> +91 8899 734 759</li>
@@ -690,15 +594,15 @@
             </div>
         </div>
         
-        <div class="max-w-7xl mx-auto px-6 border-t border-borderline pt-8 flex flex-col md:flex-row justify-between items-center text-[0.65rem] text-muted tracking-widest uppercase font-semibold">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 border-t border-borderline pt-6 flex flex-col md:flex-row justify-between items-center text-[0.55rem] md:text-[0.65rem] text-muted tracking-widest uppercase font-semibold text-center md:text-left">
             <p>&copy; <script>document.write(new Date().getFullYear())</script> Srinagar Destinations.</p>
-            <p class="mt-3 md:mt-0">All Rights Reserved</p>
+            <p class="mt-2 md:mt-0">All Rights Reserved</p>
         </div>
     </footer>
 
     <!-- Transparent / Blurry Sticky Bottom Actions -->
-    <div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 flex items-center shadow-[0_8px_32px_rgba(0,0,0,0.4)] rounded-full bg-[rgba(18,18,18,0.3)] backdrop-blur-2xl border-[1.5px] border-white/50 p-1.5 transition-transform duration-300 w-max">
-        <a href="tel:+918899734759" class="flex items-center justify-center gap-2 bg-transparent text-white hover:text-primary px-5 py-2 rounded-full transition-colors text-xs font-bold uppercase tracking-widest border-r border-white/20 drop-shadow-md">
+    <div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 flex items-center justify-between glass-bottom-bar rounded-full p-1.5 transition-transform duration-300 w-[92%] sm:w-max max-w-sm">
+        <a href="tel:+918899734759" class="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-transparent text-light hover:text-primary px-4 md:px-6 py-2 rounded-full transition-colors text-[0.65rem] md:text-xs font-bold uppercase tracking-widest border-r border-white/20">
             <i class="fa-solid fa-phone text-primary"></i> Book Appointment
         </a>
         <a href="https://wa.me/918899734759?text=Hello,%20I'd%20like%20to%20book%20an%20appointment/tour." target="_blank" class="flex items-center justify-center w-10 h-10 ml-2 rounded-full bg-[#25D366] text-white shadow-xl hover:scale-110 transition-transform">
@@ -764,10 +668,9 @@
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
-                // Determine theme blur class for deep immersion
-                navbar.classList.add('backdrop-blur-xl', 'bg-[rgba(10,10,10,0.6)]', 'border-borderline');
-                navbar.classList.remove('border-transparent', 'py-5');
-                navbar.classList.add('py-3');
+                navbar.classList.add('backdrop-blur-xl', 'bg-[rgba(10,10,10,0.6)]', 'border-borderline', 'shadow-lg');
+                navbar.classList.remove('border-transparent', 'py-4');
+                navbar.classList.add('py-2');
                 
                 if(document.documentElement.classList.contains('light-theme')){
                     navbar.style.backgroundColor = 'rgba(255,255,255,0.7)';
@@ -775,9 +678,9 @@
                     navbar.style.backgroundColor = 'rgba(3,3,3,0.7)';
                 }
             } else {
-                navbar.classList.remove('backdrop-blur-xl', 'bg-[rgba(10,10,10,0.6)]', 'border-borderline', 'py-3');
+                navbar.classList.remove('backdrop-blur-xl', 'bg-[rgba(10,10,10,0.6)]', 'border-borderline', 'shadow-lg', 'py-2');
                 navbar.style.backgroundColor = 'transparent';
-                navbar.classList.add('border-transparent', 'py-5');
+                navbar.classList.add('border-transparent', 'py-4');
             }
         });
 
@@ -814,22 +717,19 @@
             pagination: { el: ".swiper-pagination", clickable: true },
         });
 
+        // Smooth Marquee Swiper
         new Swiper(".offbeatSwiper", {
-            slidesPerView: 2,
-            spaceBetween: 20,
+            slidesPerView: 2.5,
+            spaceBetween: 15,
             loop: true,
-            autoplay: { delay: 3000, disableOnInteraction: false },
+            speed: 3000,
+            allowTouchMove: false, // Prevents user from stopping the smooth scroll
+            autoplay: { delay: 0, disableOnInteraction: false },
             breakpoints: {
-                640: { slidesPerView: 3 },
-                768: { slidesPerView: 4 },
-                1024: { slidesPerView: 5 },
+                640: { slidesPerView: 3.5, spaceBetween: 20 },
+                768: { slidesPerView: 4.5, spaceBetween: 20 },
+                1024: { slidesPerView: 5.5, spaceBetween: 30 },
             }
-        });
-
-        new Swiper(".testSwiper", {
-            loop: true,
-            autoplay: { delay: 5000 },
-            pagination: { el: ".swiper-pagination", clickable: true },
         });
 
         // FAQ Accordion
@@ -860,4 +760,4 @@
         });
     </script>
 </body>
-</html>
+    </html>
